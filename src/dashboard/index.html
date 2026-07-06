@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crosshair0</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo">
+        <h1 data-i18n="app.title">Crosshair0</h1>
+        <span data-i18n="app.subtitle">Professional Overlay</span>
+    </div>
+    <div class="menu">
+        <button class="menu-btn active" data-page="editor" data-i18n="nav.editor">Editor</button>
+        <button class="menu-btn" data-page="profiles" data-i18n="nav.profiles">Profiles</button>
+        <button class="menu-btn" data-page="settings" data-i18n="nav.settings">Settings</button>
+    </div>
+    <div id="game-detect" class="game-detect">
+        <div class="game-detect-label" data-i18n="gameDetect.title">Game Detection</div>
+        <div class="game-detect-status">
+            <span class="status-dot" id="status-dot"></span>
+            <span id="game-name" data-i18n="gameDetect.noGame">No game detected</span>
+        </div>
+        <div id="game-profile-status" class="game-profile-status hidden">
+            <span class="game-profile-label" data-i18n="gameDetect.activeProfile">Active profile:</span>
+            <span id="active-profile-name" class="active-profile-name">-</span>
+        </div>
+        <div class="check" id="revert-on-exit-wrap" style="margin-top:10px;">
+            <input type="checkbox" id="revert-on-exit" checked>
+            <span data-i18n="gameDetect.revertOnExit">Revert to default on game exit</span>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+
+    <!-- ===== EDITOR PAGE ===== -->
+    <div id="page-editor" class="page active">
+        <div class="topbar" style="display:flex;align-items:center;justify-content:space-between;">
+            <h2 data-i18n="editor.title">Crosshair Editor</h2>
+            <div id="active-game-badge" class="active-game-badge hidden">
+                <span id="active-game-icon" class="game-icon-dot"></span>
+                <span id="active-game-text">-</span>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="card controls">
+                <h3 data-i18n="editor.title">Crosshair</h3>
+
+                <label data-i18n="editor.type">Type</label>
+                <div class="ctrl-row">
+                    <select id="type">
+                        <option value="dot" data-i18n="editor.type.dot">Dot</option>
+                        <option value="cross" data-i18n="editor.type.cross">Cross</option>
+                        <option value="circle" data-i18n="editor.type.circle">Circle</option>
+                        <option value="x" data-i18n="editor.type.x">X Shape</option>
+                        <option value="t" data-i18n="editor.type.t">T Shape</option>
+                    </select>
+                    <button class="reset-val" data-target="type" title="Reset">↺</button>
+                </div>
+
+                <label data-i18n="editor.color">Color</label>
+                <div class="ctrl-row">
+                    <input type="color" id="color" value="#ff0000">
+                    <button class="reset-val" data-target="color" title="Reset">↺</button>
+                </div>
+
+                <label><span data-i18n="editor.size">Size</span> <span id="size-val">20</span></label>
+                <div class="ctrl-row">
+                    <input type="range" id="size" min="5" max="100" value="20">
+                    <button class="reset-val" data-target="size" title="Reset">↺</button>
+                </div>
+
+                <label><span data-i18n="editor.gap">Gap</span> <span id="gap-val">4</span></label>
+                <div class="ctrl-row">
+                    <input type="range" id="gap" min="0" max="40" value="4">
+                    <button class="reset-val" data-target="gap" title="Reset">↺</button>
+                </div>
+
+                <label><span data-i18n="editor.thickness">Thickness</span> <span id="thickness-val">4</span></label>
+                <div class="ctrl-row">
+                    <input type="range" id="thickness" min="1" max="15" value="4">
+                    <button class="reset-val" data-target="thickness" title="Reset">↺</button>
+                </div>
+
+                <label><span data-i18n="editor.opacity">Opacity</span> <span id="opacity-val">1</span></label>
+                <div class="ctrl-row">
+                    <input type="range" id="opacity" min="0.1" max="1" step="0.1" value="1">
+                    <button class="reset-val" data-target="opacity" title="Reset">↺</button>
+                </div>
+
+                <label><span data-i18n="editor.rotation">Rotation</span> <span id="rotation-val">0</span></label>
+                <div class="ctrl-row">
+                    <input type="range" id="rotation" min="0" max="360" value="0">
+                    <button class="reset-val" data-target="rotation" title="Reset">↺</button>
+                </div>
+
+                <label><span data-i18n="editor.offsetX">Offset X</span> <span id="offset-x-val">0</span></label>
+                <div class="ctrl-row">
+                    <input type="range" id="offset-x" min="-200" max="200" value="0">
+                    <button class="reset-val" data-target="offset_x" title="Reset">↺</button>
+                </div>
+
+                <label><span data-i18n="editor.offsetY">Offset Y</span> <span id="offset-y-val">0</span></label>
+                <div class="ctrl-row">
+                    <input type="range" id="offset-y" min="-200" max="200" value="0">
+                    <button class="reset-val" data-target="offset_y" title="Reset">↺</button>
+                </div>
+
+                <div class="check">
+                    <input type="checkbox" id="outline">
+                    <span data-i18n="editor.outline">Outline</span>
+                </div>
+
+                <div id="outline-options" class="hidden">
+                    <label data-i18n="editor.outlineColor">Outline Color</label>
+                    <div class="ctrl-row">
+                        <input type="color" id="outline-color" value="#000000">
+                        <button class="reset-val" data-target="outlineColor" title="Reset">↺</button>
+                    </div>
+                    <label><span data-i18n="editor.outlineThickness">Outline Thickness</span> <span id="outline-thickness-val">1</span></label>
+                    <div class="ctrl-row">
+                        <input type="range" id="outline-thickness" min="1" max="5" value="1">
+                        <button class="reset-val" data-target="outline_thickness" title="Reset">↺</button>
+                    </div>
+                    <label><span data-i18n="editor.outlineOpacity">Outline Opacity</span> <span id="outline-opacity-val">1</span></label>
+                    <div class="ctrl-row">
+                        <input type="range" id="outline-opacity" min="0.1" max="1" step="0.1" value="1">
+                        <button class="reset-val" data-target="outline_opacity" title="Reset">↺</button>
+                    </div>
+                </div>
+
+                <div class="check">
+                    <input type="checkbox" id="center-dot">
+                    <span data-i18n="editor.centerDot">Center Dot</span>
+                </div>
+
+                <div class="check">
+                    <input type="checkbox" id="rgb">
+                    <span data-i18n="editor.rgb">RGB Mode</span>
+                </div>
+
+                <label><span data-i18n="editor.rgbSpeed">RGB Speed</span> <span id="rgb-speed-val">2</span></label>
+                <div class="ctrl-row">
+                    <input type="range" id="rgb-speed" min="0.5" max="5" step="0.5" value="2">
+                    <button class="reset-val" data-target="rgb_speed" title="Reset">↺</button>
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="check">
+                    <input type="checkbox" id="layer2-enable">
+                    <span data-i18n="editor.layer2">Second Layer</span>
+                </div>
+
+                <div id="layer2-options" class="hidden">
+                    <label data-i18n="editor.layer2Type">Layer 2 Type</label>
+                    <select id="layer2-type">
+                        <option value="dot" data-i18n="editor.type.dot">Dot</option>
+                        <option value="cross" data-i18n="editor.type.cross">Cross</option>
+                        <option value="circle" data-i18n="editor.type.circle">Circle</option>
+                        <option value="x" data-i18n="editor.type.x">X Shape</option>
+                        <option value="t" data-i18n="editor.type.t">T Shape</option>
+                    </select>
+                    <label data-i18n="editor.layer2Color">Layer 2 Color</label>
+                    <input type="color" id="layer2-color" value="#00ff00">
+                    <label><span data-i18n="editor.layer2Size">Layer 2 Size</span> <span id="layer2-size-val">30</span></label>
+                    <input type="range" id="layer2-size" min="5" max="100" value="30">
+                    <label><span data-i18n="editor.layer2Gap">Layer 2 Gap</span> <span id="layer2-gap-val">6</span></label>
+                    <input type="range" id="layer2-gap" min="0" max="40" value="6">
+                    <label><span data-i18n="editor.layer2Thickness">Layer 2 Thickness</span> <span id="layer2-thickness-val">2</span></label>
+                    <input type="range" id="layer2-thickness" min="1" max="15" value="2">
+                </div>
+
+                <div class="actions">
+                    <button id="apply" data-i18n="editor.apply">Apply</button>
+                    <button id="save" data-i18n="editor.save">Save</button>
+                    <button id="reset-btn" data-i18n="editor.reset">Reset</button>
+                </div>
+                <div class="actions secondary">
+                    <button id="copy-btn" data-i18n="editor.copy">Copy</button>
+                    <button id="paste-btn" data-i18n="editor.paste">Paste</button>
+                    <button id="save-preset-btn">+Preset</button>
+                    <button id="export-png-btn" title="Export PNG">🖼</button>
+                    <button id="copy-cs2" data-i18n="editor.copyCs2">CS2</button>
+                    <button id="copy-valorant" data-i18n="editor.copyValorant">VAL</button>
+                </div>
+            </div>
+
+            <div class="card preview-card">
+                <h3 data-i18n="preview.title">Live Preview</h3>
+                <div class="preview-box">
+                    <div id="preview-crosshair"></div>
+                </div>
+
+                <div class="display-select">
+                    <label data-i18n="preview.display">Display</label>
+                    <select id="display-select"></select>
+                </div>
+
+                <button id="toggle-fps" class="btn-secondary" data-i18n="preview.toggleFps">Toggle FPS</button>
+
+                <h3 data-i18n="preview.background">Preview BG</h3>
+                <div class="preview-bg-options">
+                    <button class="bg-btn active" data-bg="dark">Dark</button>
+                    <button class="bg-btn" data-bg="light">Light</button>
+                    <button class="bg-btn" data-bg="transparent">Transparent</button>
+                </div>
+
+                <h3 data-i18n="preview.shortcuts">Shortcuts</h3>
+                <div class="shortcuts">
+                    <div><span data-i18n="preview.hide">Hide</span> <kbd id="sc-hide">F6</kbd></div>
+                    <div><span data-i18n="preview.show">Show</span> <kbd id="sc-show">F7</kbd></div>
+                    <div><span data-i18n="preview.toggleRGB">Toggle RGB</span> <kbd id="sc-rgb">F8</kbd></div>
+                </div>
+            </div>
+
+            <div class="card presets-card">
+                <h3 data-i18n="presets.title">Presets Gallery</h3>
+                <input id="preset-search" class="preset-search" type="text" data-i18n="presets.search" placeholder="Search presets...">
+                <div id="presets-grid"></div>
+            </div>
+
+            <div class="card profiles-card">
+                <h3 data-i18n="profiles.title">Profiles</h3>
+                <input id="profile-name" data-i18n="profiles.name" placeholder="Profile Name">
+                <div class="profile-actions">
+                    <button id="save-profile" data-i18n="profiles.save">Save Profile</button>
+                    <button id="load-profile" data-i18n="profiles.load">Load Profile</button>
+                    <button id="export-profile" data-i18n="profiles.export">Export</button>
+                    <button id="import-profile" data-i18n="profiles.import">Import</button>
+                </div>
+                <select id="profiles-list"></select>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PROFILES PAGE ===== -->
+    <div id="page-profiles" class="page">
+        <div class="topbar">
+            <h2 data-i18n="profilesManager.title">Profile Manager</h2>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h3 data-i18n="profilesManager.title">Saved Profiles</h3>
+                <input id="profile-search-input" class="preset-search" type="text" data-i18n="profiles.search" placeholder="Search profiles...">
+                <div id="profiles-manager-list"></div>
+            </div>
+            <div class="card">
+                <h3 data-i18n="gameProfiles.title">Game Profiles</h3>
+                <p>Select a game to assign a profile:</p>
+                <select id="game-select">
+                    <option value="" data-i18n="gameProfiles.selectGame">-- Select Game --</option>
+                    <option value="cs2">CS2</option>
+                    <option value="valorant">Valorant</option>
+                    <option value="fivem">FiveM</option>
+                </select>
+                <select id="game-profile-select"></select>
+                <button id="assign-game-profile" class="btn-primary" data-i18n="gameProfiles.assign">Assign</button>
+                <div id="game-assignments" style="margin-top:12px;"></div>
+                <p style="font-size:12px;color:#64748b;margin-top:12px;">Profile detected when game runs, auto-switches overlay. Unassign to use default.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SETTINGS PAGE ===== -->
+    <div id="page-settings" class="page">
+        <div class="topbar">
+            <h2 data-i18n="settings.title">Settings</h2>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <h3 data-i18n="settings.appearance">Appearance</h3>
+                <button class="theme-btn active" data-theme="dark" data-i18n="settings.dark">Dark</button>
+                <button class="theme-btn" data-theme="light" data-i18n="settings.light">Light</button>
+                <button class="theme-btn" data-theme="cyber" data-i18n="settings.cyber">Cyber</button>
+            </div>
+            <div class="card">
+                <h3 data-i18n="settings.language">Language</h3>
+                <button class="lang-btn active" data-lang="en" data-i18n="settings.english">English</button>
+                <button class="lang-btn" data-lang="ar" data-i18n="settings.arabic">العربية</button>
+            </div>
+            <div class="card">
+                <h3 data-i18n="settings.shortcuts">Shortcuts</h3>
+                <div class="shortcut-edit">
+                    <label data-i18n="settings.hide">Hide</label>
+                    <input type="text" id="sc-edit-hide" class="shortcut-input" readonly>
+                </div>
+                <div class="shortcut-edit">
+                    <label data-i18n="settings.show">Show</label>
+                    <input type="text" id="sc-edit-show" class="shortcut-input" readonly>
+                </div>
+                <div class="shortcut-edit">
+                    <label data-i18n="settings.toggleRGB">Toggle RGB</label>
+                    <input type="text" id="sc-edit-rgb" class="shortcut-input" readonly>
+                </div>
+            </div>
+            <div class="card">
+                <h3 data-i18n="settings.autoLaunch">Auto Launch</h3>
+                <div class="check">
+                    <input type="checkbox" id="auto-launch">
+                    <span data-i18n="settings.startWithWindows">Start with Windows</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3 data-i18n="settings.tray">Tray</h3>
+                <div class="check">
+                    <input type="checkbox" id="minimize-tray">
+                    <span data-i18n="settings.minimizeToTray">Minimize to tray on close</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3 data-i18n="settings.backup">Backup</h3>
+                <button id="backup-all" class="btn-primary" data-i18n="settings.exportAll">Export All Settings</button>
+                <button id="restore-all" class="btn-secondary" data-i18n="settings.importSettings">Import Settings</button>
+            </div>
+            <div class="card">
+                <h3 data-i18n="share.title">Share Crosshair</h3>
+                <button id="share-copy-link" class="btn-secondary" data-i18n="share.copyLink">Copy Share Link</button>
+                <button id="share-import-link" class="btn-secondary" data-i18n="share.importLink">Import from Link</button>
+            </div>
+            <div class="card">
+                <h3 data-i18n="history.title">Crosshair History</h3>
+                <div id="history-list"></div>
+            </div>
+            <div class="card">
+                <h3 data-i18n="update.title">Updates</h3>
+                <p id="update-version" data-i18n="update.latest">Latest version</p>
+                <div id="update-progress-wrap" class="hidden" style="margin-bottom:10px;">
+                    <progress id="update-progress-bar" max="100" value="0" style="width:100%;height:8px;border-radius:4px;"></progress>
+                    <span id="update-progress-text" style="font-size:12px;color:#94a3b8;">0%</span>
+                </div>
+                <button id="check-update" class="btn-secondary" data-i18n="update.check">Check for Updates</button>
+                <button id="install-update-btn" class="btn-primary hidden" style="background:#16a34a;" data-i18n="update.install">Install & Restart</button>
+            </div>
+            <div class="card">
+                <h3 data-i18n="settings.about">About</h3>
+                <p data-i18n="app.version">Crosshair0 v3.0.0</p>
+                <p>Professional Crosshair Overlay</p>
+                <p>By Srp0</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="toast-container"></div>
+
+<div id="confirm-overlay" class="hidden">
+    <div id="confirm-dialog">
+        <p id="confirm-msg"></p>
+        <div class="confirm-actions">
+            <button id="confirm-cancel" data-i18n="profiles.cancel">Cancel</button>
+            <button id="confirm-ok" data-i18n="profiles.ok">OK</button>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

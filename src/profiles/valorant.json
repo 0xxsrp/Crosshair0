@@ -1,0 +1,11 @@
+{
+  "type": "cross",
+  "color": "#00ff00",
+  "size": 16,
+  "gap": 3,
+  "thickness": 3,
+  "opacity": 1,
+  "outline": false,
+  "outlineColor": "#000000",
+  "rgb": false
+}

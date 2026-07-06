@@ -1,0 +1,39 @@
+html, body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:transparent;
+}
+
+#crosshair{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+}
+
+.part{
+    position:absolute;
+    outline-offset:1px;
+}
+
+#fps{
+    position:absolute;
+    top:20px;
+    left:20px;
+    color:white;
+    font-size:16px;
+    font-family:Segoe UI;
+    pointer-events:none;
+}
+
+@keyframes rgb{
+    0%{ background:#ff0000; border-color:#ff0000; outline-color:#ff0000; }
+    16%{ background:#ff8800; border-color:#ff8800; outline-color:#ff8800; }
+    33%{ background:#ffff00; border-color:#ffff00; outline-color:#ffff00; }
+    50%{ background:#00ff00; border-color:#00ff00; outline-color:#00ff00; }
+    66%{ background:#00ffff; border-color:#00ffff; outline-color:#00ffff; }
+    83%{ background:#8800ff; border-color:#8800ff; outline-color:#8800ff; }
+    100%{ background:#ff0000; border-color:#ff0000; outline-color:#ff0000; }
+}

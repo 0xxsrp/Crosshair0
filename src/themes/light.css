@@ -1,0 +1,21 @@
+body{ background:#f8fafc; color:#0f172a; }
+.sidebar{ background:#ffffff; border-right-color:#e2e8f0; }
+.logo span{ color:#64748b; }
+.menu-btn{ background:#e2e8f0; color:#0f172a; }
+.menu-btn.active{ background:#2563eb; color:white; }
+.card{ background:#ffffff; border:1px solid #e2e8f0; }
+.card:hover{ box-shadow:0 8px 25px rgba(0,0,0,0.1); }
+.controls label span{ background:#e2e8f0; color:#64748b; }
+#outline-options{ background:#f1f5f9; }
+.preview-box{ background:#f8fafc; }
+.shortcuts > div{ border-bottom-color:#e2e8f0; }
+.shortcuts kbd{ background:#e2e8f0; color:#64748b; }
+.preset-item{ background:#f1f5f9; }
+.preset-item span{ color:#64748b; }
+.preset-preview{ border-color:#cbd5e1; }
+.profile-manager-item{ background:#f1f5f9; }
+.theme-btn{ background:#e2e8f0; color:#0f172a; }
+.theme-btn.active{ background:#2563eb; color:white; }
+select, input[type="color"], input[type="text"]{ background:#e2e8f0; color:#0f172a; }
+select option{ background:#e2e8f0; color:#0f172a; }
+input[type="range"]{ accent-color:#2563eb; }

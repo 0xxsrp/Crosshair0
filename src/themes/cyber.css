@@ -1,0 +1,28 @@
+body{ background:#0a0a0a; color:#00ff99; }
+.sidebar{ background:#0d0d0d; border-right-color:#1a1a1a; }
+.logo h1{ color:#00ff99; }
+.logo span{ color:#006633; }
+.menu-btn{ background:#1a1a1a; color:#00ff99; border:1px solid #003311; }
+.menu-btn.active{ background:#00ff99; color:#000000; }
+.card{ background:#0d0d0d; border:1px solid #003311; }
+.card:hover{ box-shadow:0 8px 25px rgba(0,255,153,0.1); }
+.controls label span{ background:#1a1a1a; color:#00ff99; }
+#outline-options{ background:#111111; border:1px solid #003311; }
+.preview-box{ background:#0a0a0a; border:1px solid #003311; }
+.shortcuts > div{ border-bottom-color:#1a1a1a; }
+.shortcuts kbd{ background:#1a1a1a; color:#00ff99; border:1px solid #003311; }
+.preset-item{ background:#111111; border:1px solid #003311; }
+.preset-item span{ color:#00cc77; }
+.preset-preview{ border-color:#003311; }
+.profile-manager-item{ background:#111111; border:1px solid #003311; }
+.theme-btn{ background:#1a1a1a; color:#00ff99; border:1px solid #003311; }
+.theme-btn.active{ background:#00ff99; color:#000000; }
+select, input[type="color"], input[type="text"]{ background:#1a1a1a; color:#00ff99; border:1px solid #003311; }
+select option{ background:#1a1a1a; color:#00ff99; }
+input[type="range"]{ accent-color:#00ff99; }
+#apply{ background:#00ff99; color:#000000; }
+#apply:hover{ background:#00cc77; }
+#save{ background:#006633; color:#00ff99; }
+#save:hover{ background:#004d26; }
+#reset-btn{ background:#1a1a1a; color:#00ff99; border:1px solid #003311; }
+h1,h2,h3{ color:#00ff99; }
