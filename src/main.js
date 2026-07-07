@@ -168,6 +168,8 @@ autoUpdater.on("update-downloaded", () => {
     if(dashboardWindow) dashboardWindow.webContents.send("update:downloaded");
 });
 
+Menu.setApplicationMenu(null);
+
 app.whenReady().then(() => {
     process.env.CROSSHAIR0_USER_DATA = app.getPath("userData");
 
