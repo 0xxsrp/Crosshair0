@@ -29,13 +29,18 @@ function applyOutline(el, s){
     }
 }
 
+function applyOffset(ox, oy){
+    container.style.left = `calc(50% + ${ox||0}px)`;
+    container.style.top = `calc(50% + ${oy||0}px)`;
+}
+
 function applyRotation(r, ox, oy){
-    const offX = ox || 0;
-    const offY = oy || 0;
+    currentRotation = r || 0;
+    applyOffset(ox, oy);
     if(r){
-        container.style.transform = `translate(calc(-50% + ${offX}px), calc(-50% + ${offY}px)) rotate(${r}deg)`;
+        container.style.transform = `translate(-50%,-50%) rotate(${r}deg)`;
     } else {
-        container.style.transform = `translate(calc(-50% + ${offX}px), calc(-50% + ${offY}px))`;
+        container.style.transform = "";
     }
 }
 
@@ -220,7 +225,7 @@ function fpsLoop(){
 }
 
 window.CrosshairAPI.onOffsetUpdate((data) => {
-    applyRotation(currentRotation, data.offset_x, data.offset_y);
+    applyOffset(data.offset_x, data.offset_y);
 });
 
 fpsLoop();

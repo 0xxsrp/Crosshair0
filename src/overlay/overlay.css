@@ -13,9 +13,12 @@ html, body{
     transform:translate(-50%,-50%);
 }
 
+#crosshair.offset{
+    transform:none;
+}
+
 .part{
     position:absolute;
-    outline-offset:1px;
 }
 
 #fps{
