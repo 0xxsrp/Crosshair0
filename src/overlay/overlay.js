@@ -30,8 +30,10 @@ function applyOutline(el, s){
 }
 
 function applyOffset(ox, oy){
-    container.style.left = `calc(50% + ${ox||0}px)`;
-    container.style.top = `calc(50% + ${oy||0}px)`;
+    const _ox = Number(ox) || 0;
+    const _oy = Number(oy) || 0;
+    container.style.left = _ox ? `calc(50% + ${_ox}px)` : "50%";
+    container.style.top = _oy ? `calc(50% + ${_oy}px)` : "50%";
 }
 
 function applyRotation(r, ox, oy){
