@@ -368,6 +368,12 @@ allInputs.forEach(el => {
     el.addEventListener("input", () => { drawPreview(); updateLabels(); pushHistory(); });
 });
 
+[offsetX, offsetY].forEach(el => {
+    el.addEventListener("input", () => {
+        window.CrosshairAPI.updateOffset(Number(offsetX.value), Number(offsetY.value));
+    });
+});
+
 outline.addEventListener("change", () => {
     document.getElementById("outline-options").classList.toggle("hidden", !outline.checked);
     pushHistory();

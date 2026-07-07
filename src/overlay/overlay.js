@@ -1,6 +1,7 @@
 const container = document.getElementById("crosshair");
 let rgbEnabled = false;
 let rgbSpeed = 2;
+let currentRotation = 0;
 
 function clear(){
     container.innerHTML = "";
@@ -176,6 +177,7 @@ window.CrosshairAPI.onToggleRGB(() => {
 window.CrosshairAPI.receive((settings) => {
     rgbEnabled = settings.rgb || false;
     rgbSpeed = settings.rgb_speed || 2;
+    currentRotation = settings.rotation || 0;
     clear();
     applyRotation(settings.rotation || 0, settings.offset_x, settings.offset_y);
 
@@ -216,5 +218,9 @@ function fpsLoop(){
     }
     requestAnimationFrame(fpsLoop);
 }
+
+window.CrosshairAPI.onOffsetUpdate((data) => {
+    applyRotation(currentRotation, data.offset_x, data.offset_y);
+});
 
 fpsLoop();

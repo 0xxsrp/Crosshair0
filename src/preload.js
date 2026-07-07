@@ -2,7 +2,9 @@ const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("CrosshairAPI", {
     update(settings) { ipcRenderer.send("crosshair:update", settings); },
+    updateOffset(x, y) { ipcRenderer.send("crosshair:updateOffset", { offset_x: x, offset_y: y }); },
     receive(callback) { ipcRenderer.on("crosshair:update", (_, data) => { callback(data); }); },
+    onOffsetUpdate(callback) { ipcRenderer.on("crosshair:updateOffset", (_, data) => { callback(data); }); },
     onToggleRGB(callback) { ipcRenderer.on("toggle-rgb", () => { callback(); }); },
     saveSettings(settings) { return ipcRenderer.invoke("settings:save", settings); },
     loadSettings() { return ipcRenderer.invoke("settings:load"); },

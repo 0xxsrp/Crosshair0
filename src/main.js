@@ -223,6 +223,11 @@ ipcMain.on("crosshair:update", (_, settings) => {
     overlayWindow.webContents.send("crosshair:update", settings);
 });
 
+ipcMain.on("crosshair:updateOffset", (_, data) => {
+    if(!overlayWindow) return;
+    overlayWindow.webContents.send("crosshair:updateOffset", data);
+});
+
 ipcMain.handle("settings:save", async (_, settings) => {
     saveSettings(settings);
     return true;
