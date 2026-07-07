@@ -149,6 +149,11 @@ function registerAllShortcuts(){
 autoUpdater.autoDownload = true;
 autoUpdater.autoInstallOnAppQuit = true;
 autoUpdater.logger = console;
+autoUpdater.setFeedURL({
+    provider: "github",
+    owner: "0xxsrp",
+    repo: "Crosshair0"
+});
 
 autoUpdater.on("update-available", (info) => {
     console.log("[AutoUpdater] Update available:", info.version);
@@ -428,30 +433,37 @@ ipcMain.handle("share:load", async (_, code) => {
 });
 
 ipcMain.handle("update:check", async () => {
-    // Check via GitHub API (works in dev mode too)
     try {
-        const result = await new Promise((resolve) => {
-            https.get("https://api.github.com/repos/0xxsrp/Crosshair0/releases/latest", {
-                headers: { "User-Agent": "Crosshair0" }
-            }, (res) => {
-                let data = "";
-                res.on("data", chunk => data += chunk);
-                res.on("end", () => {
-                    try {
-                        const release = JSON.parse(data);
-                        const latest = release.tag_name || release.name || "";
-                        const current = config.version;
-                        resolve({ latest, current, hasUpdate: latest !== current && !!latest });
-                    } catch(e) { resolve(null); }
-                });
-            }).on("error", () => resolve(null));
-        });
-        return result;
-    } catch(e) { return null; }
+        autoUpdater.setFeedURL({ provider: "github", owner: "0xxsrp", repo: "Crosshair0" });
+        await autoUpdater.checkForUpdates();
+        return { hasUpdate: true };
+    } catch(e) {
+        // Fallback: manual API check
+        try {
+            const result = await new Promise((resolve) => {
+                https.get("https://api.github.com/repos/0xxsrp/Crosshair0/releases/latest", {
+                    headers: { "User-Agent": "Crosshair0" }
+                }, (res) => {
+                    let data = "";
+                    res.on("data", chunk => data += chunk);
+                    res.on("end", () => {
+                        try {
+                            const release = JSON.parse(data);
+                            const latest = release.tag_name || release.name || "";
+                            const current = config.version;
+                            resolve({ latest, current, hasUpdate: latest !== current && !!latest });
+                        } catch(e) { resolve(null); }
+                    });
+                }).on("error", () => resolve(null));
+            });
+            return result;
+        } catch(e) { return null; }
+    }
 });
 
 ipcMain.handle("update:checkAuto", async () => {
     try {
+        autoUpdater.setFeedURL({ provider: "github", owner: "0xxsrp", repo: "Crosshair0" });
         await autoUpdater.checkForUpdates();
         return true;
     } catch(e) {
