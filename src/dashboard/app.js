@@ -1033,6 +1033,8 @@ async function updateGameStatus(){
 // ===== THEME =====
 let activeTheme = null;
 function loadTheme(name){
+    const allowed = ["dark", "light", "cyber"];
+    if(!allowed.includes(name)) return;
     if(activeTheme){ document.head.removeChild(activeTheme); activeTheme = null; }
     const link = document.createElement("link");
     link.rel = "stylesheet";

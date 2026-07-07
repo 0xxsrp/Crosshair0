@@ -120,6 +120,7 @@ function createDashboard(){
 
 function loadProfileFile(profileName){
     try {
+        if(!/^[\w-]+$/.test(profileName)) return null;
         const profilePath = path.join(__dirname, "profiles", `${profileName}.json`);
         if(!fs.existsSync(profilePath)) return null;
         return JSON.parse(fs.readFileSync(profilePath, "utf8"));
@@ -321,7 +322,11 @@ ipcMain.handle("custom-preset:delete", async (_, id) => {
 });
 
 ipcMain.handle("config:update", async (_, updates) => {
-    Object.assign(config, updates);
+    const allowed = new Set(["minimizeToTray", "revertOnExit"]);
+    for(const key of Object.keys(updates)){
+        if(!allowed.has(key)) continue;
+        config[key] = updates[key];
+    }
     if(updates.minimizeToTray !== undefined) minimizeToTray = updates.minimizeToTray;
     if(updates.revertOnExit !== undefined) _revertOnExit = updates.revertOnExit;
     config.save();
@@ -479,8 +484,12 @@ ipcMain.handle("update:install", async () => {
     return true;
 });
 
+const ALLOWED_GAMES = new Set(["cs2", "valorant", "fivem", "apex", "fortnite", "overwatch", "pubg", "r6", "cod"]);
+
 ipcMain.on("game:assign", (_, { game, name }) => {
     try {
+        if(!ALLOWED_GAMES.has(game)) return;
+        if(!/^[\w\s-]+$/.test(name)) return;
         const profile = loadProfile(name);
         if(profile){
             saveProfile("game_" + game, profile);
@@ -492,6 +501,7 @@ ipcMain.on("game:assign", (_, { game, name }) => {
 
 ipcMain.on("game:reset", (_, game) => {
     try {
+        if(!ALLOWED_GAMES.has(game)) return;
         deleteProfile("game_" + game);
         const profilePath = path.join(__dirname, "profiles", `${game}.json`);
         if(fs.existsSync(profilePath)) fs.unlinkSync(profilePath);
