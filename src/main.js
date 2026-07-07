@@ -431,7 +431,7 @@ ipcMain.handle("update:check", async () => {
     // Check via GitHub API (works in dev mode too)
     try {
         const result = await new Promise((resolve) => {
-            https.get("https://api.github.com/repos/anomalyco/Crosshair0/releases/latest", {
+            https.get("https://api.github.com/repos/0xxsrp/Crosshair0/releases/latest", {
                 headers: { "User-Agent": "Crosshair0" }
             }, (res) => {
                 let data = "";
