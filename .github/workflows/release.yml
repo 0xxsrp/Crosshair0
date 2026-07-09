@@ -26,32 +26,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload unsigned installer
-        id: upload-unsigned
-        uses: actions/upload-artifact@v4
-        with:
-          name: unsigned-installer
-          path: dist/Crosshair0*.exe
-          if-no-files-found: error
-
-      - name: Sign with SignPath.io
-        id: sign
-        if: ${{ secrets.SIGNPATH_API_TOKEN != '' }}
-        uses: signpath/github-action-submit-signing-request@v2
-        with:
-          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-          organization-id: ${{ secrets.SIGNPATH_ORG_ID }}
-          project-slug: ${{ secrets.SIGNPATH_PROJECT_SLUG }}
-          signing-policy-slug: ${{ secrets.SIGNPATH_SIGNING_POLICY_SLUG }}
-          artifact-configuration-slug: installer
-          github-artifact-id: ${{ steps.upload-unsigned.outputs.artifact-id }}
-          wait-for-completion: true
-          output-artifact-directory: dist/signed
-
-      - name: Copy signed files
-        if: steps.sign.outputs.result == 'success'
-        run: Copy-Item -Path "dist/signed/*" -Destination "dist/" -Force
-
       - name: Fix latest.yml
         run: node scripts/fix-latest-yml.js
 
