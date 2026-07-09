@@ -46,5 +46,6 @@ contextBridge.exposeInMainWorld("CrosshairAPI", {
     onUpdateDownloaded(callback) { ipcRenderer.on("update:downloaded", () => { callback(); }); },
     assignGameProfile(game, name) { ipcRenderer.send("game:assign", { game, name }); },
     resetGameAssignment(game) { ipcRenderer.send("game:reset", game); },
-    onGameProfileActive(callback) { ipcRenderer.on("game:profile-active", (_, data) => { callback(data); }); }
+    onGameProfileActive(callback) { ipcRenderer.on("game:profile-active", (_, data) => { callback(data); }); },
+    onCursorSet(callback) { ipcRenderer.on("cursor:set", (_, visible) => { callback(visible); }); }
 });

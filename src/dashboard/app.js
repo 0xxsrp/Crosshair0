@@ -76,6 +76,7 @@ const opacity = document.getElementById("opacity");
 const rotation = document.getElementById("rotation");
 const rgb = document.getElementById("rgb");
 const outline = document.getElementById("outline");
+const outlineType = document.getElementById("outline-type");
 const outlineColor = document.getElementById("outline-color");
 const outlineThickness = document.getElementById("outline-thickness");
 const outlineOpacity = document.getElementById("outline-opacity");
@@ -187,7 +188,7 @@ function addUndoButtons(){
 // ===== SETTINGS STATE =====
 const defaults = {
     type: "cross", color: "#ff0000", size: 20, gap: 4, thickness: 4,
-    opacity: 1, outline: false, outlineColor: "#000000",
+    opacity: 1, outline: false, outline_type: "outline", outlineColor: "#000000",
     outline_thickness: 1, outline_opacity: 1, center_dot: false,
     rgb: false, rgb_speed: 2.0, display_index: 0, rotation: 0,
     layer2_enabled: false, layer2_type: "cross", layer2_color: "#00ff00",
@@ -207,6 +208,7 @@ function currentSettings(){
         opacity: Number(opacity.value),
         rotation: Number(rotation.value),
         outline: outline.checked,
+        outline_type: outlineType.value,
         outlineColor: outlineColor.value,
         outline_thickness: Number(outlineThickness.value),
         outline_opacity: Number(outlineOpacity.value),
@@ -236,6 +238,7 @@ function applySettingsToUI(s){
     opacity.value = s.opacity ?? defaults.opacity;
     rotation.value = s.rotation ?? 0;
     outline.checked = Boolean(s.outline);
+    outlineType.value = s.outline_type || "outline";
     outlineColor.value = s.outlineColor || defaults.outlineColor;
     outlineThickness.value = s.outline_thickness ?? defaults.outline_thickness;
     outlineOpacity.value = s.outline_opacity ?? 1;
@@ -361,29 +364,51 @@ function renderPreviewT(s, cx, cy){
     }
 }
 
+function renderPreviewArrow(s, cx, cy){
+    const sz = s.size, t = s.thickness, c = s.color, o = s.opacity;
+    const head = `<div style="position:absolute;width:0;height:0;border-left:${t}px solid transparent;border-right:${t}px solid transparent;border-bottom:${sz}px solid ${c};left:${cx-t}px;top:${cy-sz/2}px;opacity:${o}"></div>`;
+    const shaft = `<div style="position:absolute;width:${t}px;height:${sz*0.6}px;background:${c};left:${cx-t/2}px;top:${cy+sz*0.2}px;opacity:${o}"></div>`;
+    preview.innerHTML = head + shaft;
+    if(s.center_dot){
+        const ds = Math.max(3, t);
+        preview.innerHTML += `<div style="position:absolute;width:${ds}px;height:${ds}px;border-radius:50%;background:${c};left:${cx-ds/2}px;top:${cy-ds/2}px;opacity:${o}"></div>`;
+    }
+}
+
+function renderPreviewTriangle(s, cx, cy){
+    const sz = s.size, c = s.color, o = s.opacity;
+    preview.innerHTML = `<div style="position:absolute;width:0;height:0;border-left:${sz/2}px solid transparent;border-right:${sz/2}px solid transparent;border-bottom:${sz}px solid ${c};left:${cx-sz/2}px;top:${cy-sz/2}px;opacity:${o}"></div>`;
+    if(s.center_dot){
+        const ds = Math.max(3, s.thickness);
+        preview.innerHTML += `<div style="position:absolute;width:${ds}px;height:${ds}px;border-radius:50%;background:${c};left:${cx-ds/2}px;top:${cy-ds/2}px;opacity:${o}"></div>`;
+    }
+}
+
 function drawPreview(){
     const s = currentSettings();
     preview.innerHTML = "";
     const cx = 75 + (s.offset_x || 0) * 0.3, cy = 75 + (s.offset_y || 0) * 0.3;
-    if(s.type === "dot"){ renderPreviewDot(s, cx, cy); }
-    else if(s.type === "circle"){ renderPreviewCircle(s, cx, cy); }
-    else if(s.type === "x"){ renderPreviewX(s, cx, cy); }
-    else if(s.type === "t"){ renderPreviewT(s, cx, cy); }
-    else { renderPreviewCross(s, cx, cy); }
+    renderPreviewByType(s, cx, cy);
 
     if(s.layer2_enabled){
         const l2cx = 75 + (s.offset_x || 0) * 0.3, l2cy = 75 + (s.offset_y || 0) * 0.3;
         const l2 = { ...s, type: s.layer2_type || "cross", color: s.layer2_color || "#00ff00", size: s.layer2_size || 30, gap: s.layer2_gap || 6, thickness: s.layer2_thickness || 2, rotation: s.layer2_rotation || 0, center_dot: false };
-        if(l2.type === "dot") renderPreviewDot(l2, l2cx, l2cy);
-        else if(l2.type === "circle") renderPreviewCircle(l2, l2cx, l2cy);
-        else if(l2.type === "x") renderPreviewX(l2, l2cx, l2cy);
-        else if(l2.type === "t") renderPreviewT(l2, l2cx, l2cy);
-        else renderPreviewCross(l2, l2cx, l2cy);
+        renderPreviewByType(l2, l2cx, l2cy);
     }
 }
 
+function renderPreviewByType(s, cx, cy){
+    if(s.type === "dot"){ renderPreviewDot(s, cx, cy); }
+    else if(s.type === "circle"){ renderPreviewCircle(s, cx, cy); }
+    else if(s.type === "x"){ renderPreviewX(s, cx, cy); }
+    else if(s.type === "t"){ renderPreviewT(s, cx, cy); }
+    else if(s.type === "arrow"){ renderPreviewArrow(s, cx, cy); }
+    else if(s.type === "triangle"){ renderPreviewTriangle(s, cx, cy); }
+    else { renderPreviewCross(s, cx, cy); }
+}
+
 // ===== INPUT EVENTS =====
-const allInputs = [type, color, size, gap, thickness, opacity, rotation, offsetX, offsetY, rgb, outline, outlineColor, outlineThickness, outlineOpacity, centerDot, rgbSpeed, layer2Type, layer2Color, layer2Size, layer2Gap, layer2Thickness, layer2Rotation];
+const allInputs = [type, color, size, gap, thickness, opacity, rotation, offsetX, offsetY, rgb, outline, outlineType, outlineColor, outlineThickness, outlineOpacity, centerDot, rgbSpeed, layer2Type, layer2Color, layer2Size, layer2Gap, layer2Thickness, layer2Rotation];
 allInputs.forEach(el => {
     el.addEventListener("input", () => { drawPreview(); updateLabels(); pushHistory(); });
 });
@@ -557,7 +582,7 @@ document.getElementById("export-png-btn").addEventListener("click", () => {
     showToast(_t("toast.pngExported"), "success");
 });
 
-// ===== COPY FOR CS2 =====
+// ===== COPY FOR GAMES =====
 document.getElementById("copy-cs2").addEventListener("click", () => {
     const s = currentSettings();
     const style = s.type === "dot" ? 5 : s.type === "circle" ? 3 : s.type === "t" ? 2 : 4;
@@ -580,6 +605,51 @@ document.getElementById("copy-cs2").addEventListener("click", () => {
     ].join("; ");
     navigator.clipboard.writeText(code);
     showToast(_t("toast.cs2Copied"), "success");
+});
+
+document.getElementById("copy-fortnite").addEventListener("click", () => {
+    const s = currentSettings();
+    const code = [
+        `FNGameUI.CrosshairInfo.Color.R=${parseInt(s.color.slice(1,3),16)}`,
+        `FNGameUI.CrosshairInfo.Color.G=${parseInt(s.color.slice(3,5),16)}`,
+        `FNGameUI.CrosshairInfo.Color.B=${parseInt(s.color.slice(5,7),16)}`,
+        `FNGameUI.CrosshairInfo.Color.A=${Math.round(s.opacity * 255)}`,
+        `FNGameUI.CrosshairInfo.Size=${s.size}`,
+        `FNGameUI.CrosshairInfo.Gap=${s.gap}`,
+        `FNGameUI.CrosshairInfo.Thickness=${s.thickness}`,
+        `FNGameUI.CrosshairInfo.Dot=${s.type === "dot" ? 1 : 0}`,
+        `FNGameUI.CrosshairInfo.bOutline=${s.outline ? 1 : 0}`
+    ].join("\n");
+    navigator.clipboard.writeText(code);
+    showToast("Fortnite crosshair copied", "success");
+});
+
+document.getElementById("copy-apex").addEventListener("click", () => {
+    const s = currentSettings();
+    const code = `CrosshairColor_R: ${Math.round(parseInt(s.color.slice(1,3),16)/2.55)}; ` +
+        `CrosshairColor_G: ${Math.round(parseInt(s.color.slice(3,5),16)/2.55)}; ` +
+        `CrosshairColor_B: ${Math.round(parseInt(s.color.slice(5,7),16)/2.55)}; ` +
+        `CrosshairColor_Opacity: ${Math.round(s.opacity * 100)}; ` +
+        `Crosshair_Size: ${s.size}; ` +
+        `Crosshair_Gap: ${s.gap}; ` +
+        `Crosshair_Thickness: ${s.thickness}; ` +
+        `Crosshair_Dot: ${s.type === "dot" ? 1 : 0}; ` +
+        `Crosshair_Outline: ${s.outline ? 1 : 0}; ` +
+        `Crosshair_OutlineThickness: ${s.outline_thickness || 1}`;
+    navigator.clipboard.writeText(code);
+    showToast("Apex crosshair copied", "success");
+});
+
+document.getElementById("copy-r6").addEventListener("click", () => {
+    const s = currentSettings();
+    const code = `CrosshairColor=${s.color}\n` +
+        `CrosshairScale=${s.size}\n` +
+        `CrosshairGap=${s.gap}\n` +
+        `CrosshairThickness=${s.thickness}\n` +
+        `CrosshairOutline=${s.outline ? 1 : 0}\n` +
+        `CenterDot=${s.center_dot ? 1 : 0}`;
+    navigator.clipboard.writeText(code);
+    showToast("R6 crosshair copied", "success");
 });
 
 document.getElementById("copy-valorant").addEventListener("click", () => {

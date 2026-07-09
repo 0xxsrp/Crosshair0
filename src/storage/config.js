@@ -11,7 +11,7 @@ const defaults = {
         outline_thickness: 1, center_dot: false, rgb: false, rgb_speed: 2.0,
         display_index: 0,
         rotation: 0,
-        outline_opacity: 1.0,
+        outline_opacity: 1.0, outline_type: "outline",
         offset_x: 0, offset_y: 0,
         layer2_enabled: false, layer2_type: "cross", layer2_color: "#00ff00",
         layer2_size: 30, layer2_gap: 6, layer2_thickness: 2, layer2_rotation: 0

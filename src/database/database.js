@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS history (
         layer2_thickness: "INTEGER DEFAULT 2",
         layer2_rotation: "REAL DEFAULT 0",
         fps_enabled: "INTEGER DEFAULT 1",
+        outline_type: "TEXT DEFAULT 'outline'",
         offset_x: "INTEGER DEFAULT 0",
         offset_y: "INTEGER DEFAULT 0"
     };
@@ -82,6 +83,7 @@ function fillSettings(s){
         layer2_thickness: s.layer2_thickness || 2,
         layer2_rotation: s.layer2_rotation || 0,
         fps_enabled: s.fps_enabled !== undefined ? s.fps_enabled : true,
+        outline_type: s.outline_type || "outline",
         offset_x: s.offset_x || 0,
         offset_y: s.offset_y || 0
     };
@@ -103,10 +105,10 @@ function saveSettings(settings){
             rgb, rgb_speed, display_index, rotation, outline_opacity,
             layer2_enabled, layer2_type, layer2_color, layer2_size,
             layer2_gap, layer2_thickness, layer2_rotation, fps_enabled,
-            offset_x, offset_y
+            outline_type, offset_x, offset_y
         ) VALUES(
             1,?,?,?,?,?,?, ?,?,?,?, ?,?,?,?,?,
-            ?,?,?,?,?, ?,?,?,?,?
+            ?,?,?,?,?, ?,?,?,?,?,?
         )
     `).run(
         settings.type, settings.color, settings.size, settings.gap,
@@ -121,6 +123,7 @@ function saveSettings(settings){
         settings.layer2_gap || 6, settings.layer2_thickness || 2,
         settings.layer2_rotation || 0,
         settings.fps_enabled !== undefined ? (settings.fps_enabled ? 1 : 0) : 1,
+        settings.outline_type || "outline",
         settings.offset_x || 0, settings.offset_y || 0
     );
 }

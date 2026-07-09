@@ -58,6 +58,8 @@
                         <option value="circle" data-i18n="editor.type.circle">Circle</option>
                         <option value="x" data-i18n="editor.type.x">X Shape</option>
                         <option value="t" data-i18n="editor.type.t">T Shape</option>
+                        <option value="arrow">Arrow</option>
+                        <option value="triangle">Triangle</option>
                     </select>
                     <button class="reset-val" data-target="type" title="Reset">↺</button>
                 </div>
@@ -116,6 +118,12 @@
                 </div>
 
                 <div id="outline-options" class="hidden">
+                    <label data-i18n="editor.outlineType">Outline Type</label>
+                    <select id="outline-type">
+                        <option value="outline" data-i18n="editor.outlineTypeOutline">Outline</option>
+                        <option value="glow" data-i18n="editor.outlineTypeGlow">Glow</option>
+                        <option value="shadow" data-i18n="editor.outlineTypeShadow">Shadow</option>
+                    </select>
                     <label data-i18n="editor.outlineColor">Outline Color</label>
                     <div class="ctrl-row">
                         <input type="color" id="outline-color" value="#000000">
@@ -164,6 +172,8 @@
                         <option value="circle" data-i18n="editor.type.circle">Circle</option>
                         <option value="x" data-i18n="editor.type.x">X Shape</option>
                         <option value="t" data-i18n="editor.type.t">T Shape</option>
+                        <option value="arrow">Arrow</option>
+                        <option value="triangle">Triangle</option>
                     </select>
                     <label data-i18n="editor.layer2Color">Layer 2 Color</label>
                     <input type="color" id="layer2-color" value="#00ff00">
@@ -189,6 +199,9 @@
                     <button id="export-png-btn" title="Export PNG">🖼</button>
                     <button id="copy-cs2" data-i18n="editor.copyCs2">CS2</button>
                     <button id="copy-valorant" data-i18n="editor.copyValorant">VAL</button>
+                    <button id="copy-fortnite" title="Fortnite">FN</button>
+                    <button id="copy-apex" title="Apex Legends">APEX</button>
+                    <button id="copy-r6" title="Rainbow Six">R6</button>
                 </div>
             </div>
 

@@ -22,10 +22,17 @@ function part(){
 }
 
 function applyOutline(el, s){
-    if(s.outline){
-        const o = s.outline_opacity !== undefined ? s.outline_opacity : 1;
-        const rgba = hexToRgba(s.outlineColor || "#000000", o);
-        el.style.outline = `${s.outline_thickness || 1}px solid ${rgba}`;
+    if(!s.outline) return;
+    const o = s.outline_opacity !== undefined ? s.outline_opacity : 1;
+    const rgba = hexToRgba(s.outlineColor || "#000000", o);
+    const t = s.outline_thickness || 1;
+    const type = s.outline_type || "outline";
+    if(type === "glow"){
+        el.style.boxShadow = `0 0 ${t*4}px ${t*2}px ${rgba}`;
+    } else if(type === "shadow"){
+        el.style.boxShadow = `${t}px ${t}px ${t*3}px ${rgba}`;
+    } else {
+        el.style.outline = `${t}px solid ${rgba}`;
     }
 }
 
@@ -46,12 +53,45 @@ function applyRotation(r, ox, oy){
     }
 }
 
+function renderArrowParts(s){
+    const size = s.size, thickness = s.thickness, color = s.color;
+    const head = part();
+    head.style.width = "0"; head.style.height = "0";
+    head.style.borderLeft = thickness + "px solid transparent";
+    head.style.borderRight = thickness + "px solid transparent";
+    head.style.borderBottom = size + "px solid " + color;
+    head.style.left = "50%"; head.style.top = "50%";
+    head.style.transform = "translate(-50%,-50%)";
+    const shaft = part();
+    shaft.style.width = thickness + "px"; shaft.style.height = (size*0.6) + "px";
+    shaft.style.background = color; shaft.style.left = "50%";
+    shaft.style.top = "50%"; shaft.style.transform = "translateX(-50%)";
+    shaft.style.marginTop = (size*0.3) + "px";
+    applyOutline(head, s); applyOutline(shaft, s);
+    if(s.center_dot) renderCenterDot(s);
+}
+
+function renderTriangleParts(s){
+    const size = s.size, color = s.color;
+    const tri = part();
+    tri.style.width = "0"; tri.style.height = "0";
+    tri.style.borderLeft = size/2 + "px solid transparent";
+    tri.style.borderRight = size/2 + "px solid transparent";
+    tri.style.borderBottom = size + "px solid " + color;
+    tri.style.left = "50%"; tri.style.top = "50%";
+    tri.style.transform = "translate(-50%,-50%)";
+    applyOutline(tri, s);
+    if(s.center_dot) renderCenterDot(s);
+}
+
 function renderLayer(s){
     switch(s.type){
         case "dot": renderDotParts(s); break;
         case "circle": renderCircleParts(s); break;
         case "x": renderXParts(s); break;
         case "t": renderTParts(s); break;
+        case "arrow": renderArrowParts(s); break;
+        case "triangle": renderTriangleParts(s); break;
         default: renderCrossParts(s); break;
     }
 }
@@ -234,6 +274,10 @@ function fpsLoop(){
 
 window.CrosshairAPI.onOffsetUpdate((data) => {
     applyOffset(data.offset_x, data.offset_y);
+});
+
+window.CrosshairAPI.onCursorSet((visible) => {
+    document.body.style.cursor = visible ? "default" : "none";
 });
 
 fpsLoop();

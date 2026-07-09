@@ -202,6 +202,7 @@ app.whenReady().then(() => {
                     if(s) overlayWindow.webContents.send("crosshair:update", s);
                 }
                 currentGame = null;
+                if(overlayWindow) overlayWindow.webContents.send("cursor:set", true);
                 if(dashboardWindow){
                     dashboardWindow.webContents.send("game:detected", null);
                     dashboardWindow.webContents.send("game:profile-active", null);
@@ -210,6 +211,7 @@ app.whenReady().then(() => {
             }
             if(currentGame === game) return;
             currentGame = game;
+            if(overlayWindow) overlayWindow.webContents.send("cursor:set", false);
             const profile = loadProfileFile(game);
             if(profile){
                 overlayWindow.webContents.send("crosshair:update", profile);
@@ -228,6 +230,10 @@ app.whenReady().then(() => {
 ipcMain.on("crosshair:update", (_, settings) => {
     if(!overlayWindow) return;
     overlayWindow.webContents.send("crosshair:update", settings);
+});
+
+ipcMain.handle("cursor:set", (_, visible) => {
+    if(overlayWindow) overlayWindow.webContents.send("cursor:set", visible);
 });
 
 ipcMain.on("crosshair:updateOffset", (_, data) => {
