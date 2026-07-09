@@ -176,6 +176,11 @@ window.CrosshairAPI.onFpsToggle(() => {
     document.getElementById("fps").style.display = fpsVisible ? "block" : "none";
 });
 
+function setFpsVisible(visible){
+    fpsVisible = visible;
+    document.getElementById("fps").style.display = fpsVisible ? "block" : "none";
+}
+
 window.CrosshairAPI.onToggleRGB(() => {
     rgbEnabled = !rgbEnabled;
     applyRGB();
@@ -203,13 +208,14 @@ window.CrosshairAPI.receive((settings) => {
             outline_opacity: settings.outline_opacity,
             center_dot: false,
             opacity: settings.opacity,
-            rotation: 0
+            rotation: settings.layer2_rotation || 0
         };
         renderLayer(layer2);
     }
 
     applyOpacity(settings.opacity);
     applyRGB();
+    if(settings.fps_enabled !== undefined) setFpsVisible(settings.fps_enabled);
 });
 
 let frames = 0;

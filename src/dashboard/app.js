@@ -92,6 +92,9 @@ const layer2Color = document.getElementById("layer2-color");
 const layer2Size = document.getElementById("layer2-size");
 const layer2Gap = document.getElementById("layer2-gap");
 const layer2Thickness = document.getElementById("layer2-thickness");
+const layer2Rotation = document.getElementById("layer2-rotation");
+
+let fpsEnabled = true;
 
 // ===== UNDO / REDO =====
 const historyMax = 50;
@@ -188,7 +191,8 @@ const defaults = {
     outline_thickness: 1, outline_opacity: 1, center_dot: false,
     rgb: false, rgb_speed: 2.0, display_index: 0, rotation: 0,
     layer2_enabled: false, layer2_type: "cross", layer2_color: "#00ff00",
-    layer2_size: 30, layer2_gap: 6, layer2_thickness: 2,
+    layer2_size: 30, layer2_gap: 6, layer2_thickness: 2, layer2_rotation: 0,
+    fps_enabled: true,
     offset_x: 0, offset_y: 0
 };
 
@@ -216,6 +220,8 @@ function currentSettings(){
         layer2_size: Number(layer2Size.value),
         layer2_gap: Number(layer2Gap.value),
         layer2_thickness: Number(layer2Thickness.value),
+        layer2_rotation: Number(layer2Rotation.value),
+        fps_enabled: fpsEnabled,
         offset_x: Number(offsetX.value),
         offset_y: Number(offsetY.value)
     };
@@ -242,12 +248,14 @@ function applySettingsToUI(s){
     layer2Size.value = s.layer2_size ?? 30;
     layer2Gap.value = s.layer2_gap ?? 6;
     layer2Thickness.value = s.layer2_thickness ?? 2;
+    layer2Rotation.value = s.layer2_rotation ?? 0;
     offsetX.value = s.offset_x ?? 0;
     offsetY.value = s.offset_y ?? 0;
     const ds = document.getElementById("display-select");
     if(ds && s.display_index !== undefined) ds.value = s.display_index;
     document.getElementById("outline-options").classList.toggle("hidden", !s.outline);
     document.getElementById("layer2-options").classList.toggle("hidden", !s.layer2_enabled);
+    fpsEnabled = s.fps_enabled !== undefined ? s.fps_enabled : true;
 }
 
 function updateLabels(){
@@ -262,6 +270,7 @@ function updateLabels(){
     document.getElementById("layer2-size-val").textContent = layer2Size.value;
     document.getElementById("layer2-gap-val").textContent = layer2Gap.value;
     document.getElementById("layer2-thickness-val").textContent = layer2Thickness.value;
+    document.getElementById("layer2-rotation-val").textContent = layer2Rotation.value;
     document.getElementById("offset-x-val").textContent = offsetX.value;
     document.getElementById("offset-y-val").textContent = offsetY.value;
 }
@@ -273,7 +282,8 @@ const resetDefaults = {
     outline_thickness: 1, outline_opacity: 1, center_dot: false,
     rgb: false, rgb_speed: 2.0,
     layer2_enabled: false, layer2_type: "cross", layer2_color: "#00ff00",
-    layer2_size: 30, layer2_gap: 6, layer2_thickness: 2,
+    layer2_size: 30, layer2_gap: 6, layer2_thickness: 2, layer2_rotation: 0,
+    fps_enabled: true,
     offset_x: 0, offset_y: 0
 };
 
@@ -355,15 +365,25 @@ function drawPreview(){
     const s = currentSettings();
     preview.innerHTML = "";
     const cx = 75 + (s.offset_x || 0) * 0.3, cy = 75 + (s.offset_y || 0) * 0.3;
-    if(s.type === "dot"){ renderPreviewDot(s, cx, cy); return; }
-    if(s.type === "circle"){ renderPreviewCircle(s, cx, cy); return; }
-    if(s.type === "x"){ renderPreviewX(s, cx, cy); return; }
-    if(s.type === "t"){ renderPreviewT(s, cx, cy); return; }
-    renderPreviewCross(s, cx, cy);
+    if(s.type === "dot"){ renderPreviewDot(s, cx, cy); }
+    else if(s.type === "circle"){ renderPreviewCircle(s, cx, cy); }
+    else if(s.type === "x"){ renderPreviewX(s, cx, cy); }
+    else if(s.type === "t"){ renderPreviewT(s, cx, cy); }
+    else { renderPreviewCross(s, cx, cy); }
+
+    if(s.layer2_enabled){
+        const l2cx = 75 + (s.offset_x || 0) * 0.3, l2cy = 75 + (s.offset_y || 0) * 0.3;
+        const l2 = { ...s, type: s.layer2_type || "cross", color: s.layer2_color || "#00ff00", size: s.layer2_size || 30, gap: s.layer2_gap || 6, thickness: s.layer2_thickness || 2, rotation: s.layer2_rotation || 0, center_dot: false };
+        if(l2.type === "dot") renderPreviewDot(l2, l2cx, l2cy);
+        else if(l2.type === "circle") renderPreviewCircle(l2, l2cx, l2cy);
+        else if(l2.type === "x") renderPreviewX(l2, l2cx, l2cy);
+        else if(l2.type === "t") renderPreviewT(l2, l2cx, l2cy);
+        else renderPreviewCross(l2, l2cx, l2cy);
+    }
 }
 
 // ===== INPUT EVENTS =====
-const allInputs = [type, color, size, gap, thickness, opacity, rotation, offsetX, offsetY, rgb, outline, outlineColor, outlineThickness, outlineOpacity, centerDot, rgbSpeed, layer2Type, layer2Color, layer2Size, layer2Gap, layer2Thickness];
+const allInputs = [type, color, size, gap, thickness, opacity, rotation, offsetX, offsetY, rgb, outline, outlineColor, outlineThickness, outlineOpacity, centerDot, rgbSpeed, layer2Type, layer2Color, layer2Size, layer2Gap, layer2Thickness, layer2Rotation];
 allInputs.forEach(el => {
     el.addEventListener("input", () => { drawPreview(); updateLabels(); pushHistory(); });
 });
@@ -540,19 +560,23 @@ document.getElementById("export-png-btn").addEventListener("click", () => {
 // ===== COPY FOR CS2 =====
 document.getElementById("copy-cs2").addEventListener("click", () => {
     const s = currentSettings();
-    const cs2 = s.type === "dot" ? "cl_crosshairdot 1" :
-        `cl_crosshair_t ${s.type === "t" ? 1 : 0}; cl_crosshairstyle ${s.type === "circle" ? 3 : s.type === "cross" ? 4 : 2}`;
+    const style = s.type === "dot" ? 5 : s.type === "circle" ? 3 : s.type === "t" ? 2 : 4;
     const code = [
-        cs2,
+        `cl_crosshairstyle ${style}`,
+        `cl_crosshairdot ${s.type === "dot" ? 1 : 0}`,
+        `cl_crosshair_t ${s.type === "t" ? 1 : 0}`,
+        `cl_crosshaircolor 5`,
         `cl_crosshaircolor_r ${parseInt(s.color.slice(1,3),16)}`,
         `cl_crosshaircolor_g ${parseInt(s.color.slice(3,5),16)}`,
         `cl_crosshaircolor_b ${parseInt(s.color.slice(5,7),16)}`,
         `cl_crosshairalpha ${Math.round(s.opacity * 255)}`,
+        `cl_crosshairusealpha 1`,
         `cl_crosshairsize ${s.size}`,
         `cl_crosshairgap ${s.gap}`,
         `cl_crosshairthickness ${s.thickness}`,
         `cl_crosshair_drawoutline ${s.outline ? 1 : 0}`,
-        `cl_crosshair_outlinethickness ${s.outline_thickness || 1}`
+        `cl_crosshair_outlinethickness ${s.outline_thickness || 1}`,
+        `cl_crosshair_sniper_width 1`
     ].join("; ");
     navigator.clipboard.writeText(code);
     showToast(_t("toast.cs2Copied"), "success");
@@ -789,7 +813,7 @@ document.getElementById("share-import-link")?.addEventListener("click", async ()
         applySettingsToUI(data);
         updateLabels();
         drawPreview();
-        showToast(_t("toast.shareLinkCopied"), "success");
+        showToast(_t("toast.profileImported"), "success");
     } catch(e) {
         showToast(_t("toast.invalidShareLink"), "error");
     }
@@ -1006,8 +1030,11 @@ document.getElementById("assign-game-profile").addEventListener("click", async (
 });
 
 // ===== FPS TOGGLE =====
-document.getElementById("toggle-fps").addEventListener("click", () => {
+document.getElementById("toggle-fps").addEventListener("click", async () => {
+    fpsEnabled = !fpsEnabled;
     window.CrosshairAPI.toggleFps();
+    await window.CrosshairAPI.saveSettings(currentSettings());
+    showToast(fpsEnabled ? "FPS On" : "FPS Off", "success");
 });
 
 // ===== GAME DETECTION STATUS =====

@@ -181,7 +181,6 @@ app.whenReady().then(() => {
     createDashboard();
 
     const launcher = new AutoLaunch({ name: "Crosshair0" });
-    launcher.isEnabled().then(enabled => { if(!enabled) launcher.enable(); });
 
     registerAllShortcuts();
 

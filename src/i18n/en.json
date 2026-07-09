@@ -36,6 +36,7 @@
     "editor.layer2Size": "Layer 2 Size",
     "editor.layer2Gap": "Layer 2 Gap",
     "editor.layer2Thickness": "Layer 2 Thickness",
+    "editor.layer2Rotation": "Layer 2 Rotation",
 
     "editor.copyCs2": "Copy for CS2",
     "editor.copyValorant": "Copy for Valorant",
@@ -71,7 +72,6 @@
     "profilesManager.delete": "Delete",
     "profilesManager.rename": "Rename",
     "profilesManager.renamePrompt": "Enter new name:",
-    "profilesManager.renameTitle": "Rename Profile",
 
     "gameProfiles.title": "Game Profiles",
     "gameProfiles.selectGame": "-- Select Game --",
@@ -97,8 +97,7 @@
     "settings.exportAll": "Export All Settings",
     "settings.importSettings": "Import Settings",
     "settings.about": "About",
-    "settings.trayQuit": "Quit",
-    "settings.trayShow": "Show Crosshair0",
+
 
     "share.title": "Share Crosshair",
     "share.copyLink": "Copy Share Link",
@@ -112,10 +111,9 @@
     "update.check": "Check for Updates",
     "update.latest": "Latest version",
     "update.install": "Install & Restart",
-    "update.downloading": "Downloading...",
+
 
     "profiles.search": "Search profiles...",
-    "presets.favorite": "Favorite",
 
     "gameProfiles.reset": "Reset",
 
@@ -124,8 +122,7 @@
     "gameDetect.detected": "Detected:",
     "gameDetect.activeProfile": "Active profile:",
     "gameDetect.revertOnExit": "Revert to default on game exit",
-    "gameDetect.default": "Default",
-    "gameDetect.assigned": "Assigned profile",
+
 
     "toast.settingsSaved": "Settings Saved",
     "toast.settingsReset": "Settings Reset",

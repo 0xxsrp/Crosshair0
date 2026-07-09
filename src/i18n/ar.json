@@ -36,6 +36,7 @@
     "editor.layer2Size": "حجم الطبقة 2",
     "editor.layer2Gap": "فجوة الطبقة 2",
     "editor.layer2Thickness": "سُمك الطبقة 2",
+    "editor.layer2Rotation": "دوران الطبقة 2",
 
     "editor.copyCs2": "نسخ لـ CS2",
     "editor.copyValorant": "نسخ لـ Valorant",
@@ -71,7 +72,6 @@
     "profilesManager.delete": "حذف",
     "profilesManager.rename": "إعادة تسمية",
     "profilesManager.renamePrompt": "أدخل الاسم الجديد:",
-    "profilesManager.renameTitle": "إعادة تسمية البروفايل",
 
     "gameProfiles.title": "بروفايلات الألعاب",
     "gameProfiles.selectGame": "-- اختر لعبة --",
@@ -97,8 +97,7 @@
     "settings.exportAll": "تصدير كل الإعدادات",
     "settings.importSettings": "استيراد إعدادات",
     "settings.about": "حول",
-    "settings.trayQuit": "خروج",
-    "settings.trayShow": "إظهار Crosshair0",
+
 
     "share.title": "مشاركة الكروسير",
     "share.copyLink": "نسخ رابط المشاركة",
@@ -112,10 +111,9 @@
     "update.check": "التحقق من التحديثات",
     "update.latest": "آخر إصدار",
     "update.install": "تثبيت وإعادة التشغيل",
-    "update.downloading": "جارٍ التحميل...",
+
 
     "profiles.search": "بحث في البروفايلات...",
-    "presets.favorite": "مفضلة",
 
     "gameProfiles.reset": "إعادة تعيين",
 
@@ -124,8 +122,7 @@
     "gameDetect.detected": "مكتشف:",
     "gameDetect.activeProfile": "البروفايل النشط:",
     "gameDetect.revertOnExit": "العودة للافتراضي عند الخروج من اللعبة",
-    "gameDetect.default": "افتراضي",
-    "gameDetect.assigned": "بروفايل معين",
+
 
     "toast.settingsSaved": "تم حفظ الإعدادات",
     "toast.settingsReset": "تم إعادة تعيين الإعدادات",

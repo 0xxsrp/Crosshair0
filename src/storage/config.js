@@ -12,7 +12,9 @@ const defaults = {
         display_index: 0,
         rotation: 0,
         outline_opacity: 1.0,
-        offset_x: 0, offset_y: 0
+        offset_x: 0, offset_y: 0,
+        layer2_enabled: false, layer2_type: "cross", layer2_color: "#00ff00",
+        layer2_size: 30, layer2_gap: 6, layer2_thickness: 2, layer2_rotation: 0
     },
     presets: [
         { name: "CS:GO Classic", type: "cross", color: "#00ff00", size: 16, gap: 2, thickness: 2, opacity: 1, outline: true, outlineColor: "#000000", outline_thickness: 1, center_dot: false, rgb: false, rgb_speed: 2.0 },
@@ -28,22 +30,47 @@ const defaults = {
     shortcuts: { hide: "F6", show: "F7", toggleRGB: "F8" }
 };
 
-function getConfigPath(){
-    const userData = process.env.CROSSHAIR0_USER_DATA;
-    return userData ? path.join(userData, "userConfig.json") : "userConfig.json";
+function userDataDir(){
+    return process.env.CROSSHAIR0_USER_DATA || __dirname;
 }
 
-let overrides = {};
-try {
-    const p = getConfigPath();
-    if(fs.existsSync(p)) overrides = JSON.parse(fs.readFileSync(p, "utf8"));
-} catch(e) {}
+function getConfigPath(){
+    return path.join(userDataDir(), "userConfig.json");
+}
+
+let _overrides = null;
+function getOverrides(){
+    if(_overrides) return _overrides;
+    try {
+        const p = getConfigPath();
+        if(fs.existsSync(p)) _overrides = JSON.parse(fs.readFileSync(p, "utf8"));
+        else _overrides = {};
+    } catch(e) { _overrides = {}; }
+    return _overrides;
+}
 
 const config = {
     ...defaults,
-    shortcuts: { ...defaults.shortcuts, ...(overrides.shortcuts || {}) },
-    minimizeToTray: overrides.minimizeToTray !== undefined ? overrides.minimizeToTray : false,
-    revertOnExit: overrides.revertOnExit !== undefined ? overrides.revertOnExit : true
+    get shortcuts(){
+        return { ...defaults.shortcuts, ...(getOverrides().shortcuts || {}) };
+    },
+    set shortcuts(v){
+        getOverrides().shortcuts = v;
+    },
+    get minimizeToTray(){
+        const o = getOverrides().minimizeToTray;
+        return o !== undefined ? o : false;
+    },
+    set minimizeToTray(v){
+        getOverrides().minimizeToTray = v;
+    },
+    get revertOnExit(){
+        const o = getOverrides().revertOnExit;
+        return o !== undefined ? o : true;
+    },
+    set revertOnExit(v){
+        getOverrides().revertOnExit = v;
+    }
 };
 
 function save(){
@@ -53,6 +80,8 @@ function save(){
             minimizeToTray: config.minimizeToTray,
             revertOnExit: config.revertOnExit
         };
+        const dir = userDataDir();
+        if(!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
         fs.writeFileSync(getConfigPath(), JSON.stringify(data, null, 2));
     } catch(e) { console.error("Failed to save config:", e); }
 }
