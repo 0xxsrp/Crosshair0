@@ -148,13 +148,11 @@
     "toast.cs2Copied": "تم نسخ كود CS2",
     "toast.valorantCopied": "تم نسخ كود Valorant",
     "toast.profileRenamed": "تم إعادة التسمية إلى {name}",
-    "toast.customPresetDeleted": "تم حذف الإعداد المسبق",
     "toast.updateAvailable": "تحديث v{version} متاح!",
     "toast.noUpdate": "لديك أحدث إصدار",
     "toast.checkingUpdate": "جارٍ التحقق من التحديثات...",
     "toast.shareLinkCopied": "تم نسخ رابط المشاركة",
     "toast.invalidShareLink": "رابط مشاركة غير صالح",
-    "toast.historyLoaded": "تم تحميل السجل",
     "toast.gameReset": "تم إعادة تعيين التعيين للعبة {game}",
 
     "profiles.ok": "موافق",

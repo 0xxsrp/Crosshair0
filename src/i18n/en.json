@@ -148,13 +148,11 @@
     "toast.cs2Copied": "CS2 crosshair code copied",
     "toast.valorantCopied": "Valorant crosshair code copied",
     "toast.profileRenamed": "Renamed to {name}",
-    "toast.customPresetDeleted": "Preset deleted",
     "toast.updateAvailable": "Update v{version} available!",
     "toast.noUpdate": "You have the latest version",
     "toast.checkingUpdate": "Checking for updates...",
     "toast.shareLinkCopied": "Share link copied to clipboard",
     "toast.invalidShareLink": "Invalid share link",
-    "toast.historyLoaded": "History loaded",
     "toast.gameReset": "Assignment reset for {game}",
 
     "profiles.ok": "OK",
