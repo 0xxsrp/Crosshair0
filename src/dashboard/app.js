@@ -900,7 +900,7 @@ async function loadHistory(){
     const items = await window.CrosshairAPI.getHistory();
     list.innerHTML = "";
     if(!items.length){
-        list.innerHTML = `<div style="color:#64748b;font-size:13px;">${_t("history.empty")}</div>`;
+        list.innerHTML = `<div class="history-empty">${_t("history.empty")}</div>`;
         return;
     }
     items.forEach(item => {

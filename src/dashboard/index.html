@@ -28,7 +28,7 @@
             <span class="game-profile-label" data-i18n="gameDetect.activeProfile">Active profile:</span>
             <span id="active-profile-name" class="active-profile-name">-</span>
         </div>
-        <div class="check" id="revert-on-exit-wrap" style="margin-top:10px;">
+        <div class="check" id="revert-on-exit-wrap">
             <input type="checkbox" id="revert-on-exit" checked>
             <span data-i18n="gameDetect.revertOnExit">Revert to default on game exit</span>
         </div>
@@ -39,7 +39,7 @@
 
     <!-- ===== EDITOR PAGE ===== -->
     <div id="page-editor" class="page active">
-        <div class="topbar" style="display:flex;align-items:center;justify-content:space-between;">
+        <div class="topbar">
             <h2 data-i18n="editor.title">Crosshair Editor</h2>
             <div id="active-game-badge" class="active-game-badge hidden">
                 <span id="active-game-icon" class="game-icon-dot"></span>
@@ -275,8 +275,8 @@
                 </select>
                 <select id="game-profile-select"></select>
                 <button id="assign-game-profile" class="btn-primary" data-i18n="gameProfiles.assign">Assign</button>
-                <div id="game-assignments" style="margin-top:12px;"></div>
-                <p style="font-size:12px;color:#64748b;margin-top:12px;">Profile detected when game runs, auto-switches overlay. Unassign to use default.</p>
+                <div id="game-assignments"></div>
+                <p class="game-assign-desc">Profile detected when game runs, auto-switches overlay. Unassign to use default.</p>
             </div>
         </div>
     </div>
@@ -344,12 +344,12 @@
             <div class="card">
                 <h3 data-i18n="update.title">Updates</h3>
                 <p id="update-version" data-i18n="update.latest">Latest version</p>
-                <div id="update-progress-wrap" class="hidden" style="margin-bottom:10px;">
-                    <progress id="update-progress-bar" max="100" value="0" style="width:100%;height:8px;border-radius:4px;"></progress>
-                    <span id="update-progress-text" style="font-size:12px;color:#94a3b8;">0%</span>
+                <div id="update-progress-wrap" class="hidden">
+                    <progress id="update-progress-bar" max="100" value="0"></progress>
+                    <span id="update-progress-text">0%</span>
                 </div>
                 <button id="check-update" class="btn-secondary" data-i18n="update.check">Check for Updates</button>
-                <button id="install-update-btn" class="btn-primary hidden" style="background:#16a34a;" data-i18n="update.install">Install & Restart</button>
+                <button id="install-update-btn" class="btn-primary hidden install-btn" data-i18n="update.install">Install & Restart</button>
             </div>
             <div class="card">
                 <h3 data-i18n="settings.about">About</h3>

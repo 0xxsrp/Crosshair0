@@ -1,21 +1,51 @@
-body{ background:#f8fafc; color:#0f172a; }
-.sidebar{ background:#ffffff; border-right-color:#e2e8f0; }
-.logo span{ color:#64748b; }
-.menu-btn{ background:#e2e8f0; color:#0f172a; }
-.menu-btn.active{ background:#2563eb; color:white; }
-.card{ background:#ffffff; border:1px solid #e2e8f0; }
-.card:hover{ box-shadow:0 8px 25px rgba(0,0,0,0.1); }
-.controls label span{ background:#e2e8f0; color:#64748b; }
-#outline-options{ background:#f1f5f9; }
-.preview-box{ background:#f8fafc; }
-.shortcuts > div{ border-bottom-color:#e2e8f0; }
-.shortcuts kbd{ background:#e2e8f0; color:#64748b; }
-.preset-item{ background:#f1f5f9; }
-.preset-item span{ color:#64748b; }
-.preset-preview{ border-color:#cbd5e1; }
-.profile-manager-item{ background:#f1f5f9; }
-.theme-btn{ background:#e2e8f0; color:#0f172a; }
-.theme-btn.active{ background:#2563eb; color:white; }
-select, input[type="color"], input[type="text"]{ background:#e2e8f0; color:#0f172a; }
-select option{ background:#e2e8f0; color:#0f172a; }
-input[type="range"]{ accent-color:#2563eb; }
+body{ background:#f1f5f9; color:#0f172a; }
+.sidebar{ background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%); border-right-color:rgba(0,0,0,0.06); }
+.sidebar::after{ background:linear-gradient(180deg,transparent,rgba(0,0,0,0.04),transparent); }
+.logo h1{ background:linear-gradient(135deg,#2563eb 0%,#7c3aed 50%,#ec4899 100%); -webkit-background-clip:text; background-clip:text; }
+.logo span{ color:rgba(100,116,139,0.5); }
+.menu-btn{ color:rgba(100,116,139,0.7); }
+.menu-btn:hover{ background:rgba(0,0,0,0.03); color:#0f172a; }
+.menu-btn.active{ background:linear-gradient(135deg,rgba(37,99,235,0.08),rgba(124,58,237,0.05)); color:#2563eb; box-shadow:inset 2px 0 0 #2563eb; }
+.card{ background:linear-gradient(135deg,rgba(255,255,255,0.9),rgba(248,250,252,0.7)); border-color:rgba(0,0,0,0.06); }
+.card::before{ background:linear-gradient(90deg,transparent,rgba(0,0,0,0.04),transparent); }
+.card:hover{ border-color:rgba(0,0,0,0.08); box-shadow:0 20px 50px -12px rgba(0,0,0,0.15); }
+.controls select, .controls input[type="color"], .controls input[type="text"],
+#layer2-options select, #layer2-options input[type="color"],
+.preset-search, .rename-input, #profiles-list, #profile-name,
+#game-select, #game-profile-select, .display-select select,
+.shortcut-input{ background:rgba(0,0,0,0.04); color:#0f172a; }
+.controls input[type="range"]{ background:rgba(0,0,0,0.08); }
+.controls input[type="range"]::-webkit-slider-thumb{ background:linear-gradient(135deg,#2563eb,#1d4ed8); }
+.controls label span{ background:rgba(0,0,0,0.04); color:rgba(100,116,139,0.6); }
+.preview-box{ background:radial-gradient(ellipse at center,rgba(0,0,0,0.02) 0%,transparent 70%); border-color:rgba(0,0,0,0.04); }
+#outline-options, #layer2-options{ background:rgba(0,0,0,0.02); border-color:rgba(0,0,0,0.04); }
+.preset-item{ background:rgba(0,0,0,0.03); border-color:rgba(0,0,0,0.03); }
+.preset-item:hover{ background:rgba(0,0,0,0.05); border-color:rgba(59,130,246,0.2); }
+.preset-preview{ border-color:rgba(0,0,0,0.08); }
+.shortcuts > div{ border-bottom-color:rgba(0,0,0,0.04); }
+.shortcuts kbd{ background:rgba(0,0,0,0.04); color:rgba(100,116,139,0.7); border-color:rgba(0,0,0,0.05); }
+.profile-manager-item{ background:rgba(0,0,0,0.03); border-color:rgba(0,0,0,0.04); }
+.profile-manager-item:hover{ background:rgba(0,0,0,0.04); border-color:rgba(0,0,0,0.06); }
+.theme-btn{ background:rgba(0,0,0,0.03); color:rgba(100,116,139,0.8); }
+.theme-btn.active, .lang-btn.active{ background:linear-gradient(135deg,#2563eb,#1d4ed8); color:white; }
+.lang-btn{ background:rgba(0,0,0,0.03); color:rgba(100,116,139,0.8); }
+.btn-secondary{ background:rgba(0,0,0,0.03); color:rgba(100,116,139,0.8); }
+.btn-secondary:hover{ background:rgba(0,0,0,0.05); color:#0f172a; }
+#apply{ background:linear-gradient(135deg,#2563eb,#1d4ed8); }
+#save{ background:linear-gradient(135deg,#16a34a,#15803d); }
+#reset-btn{ background:rgba(0,0,0,0.04); color:rgba(100,116,139,0.8); }
+#reset-btn:hover{ background:rgba(0,0,0,0.06); color:#0f172a; }
+.bg-btn{ background:rgba(0,0,0,0.03); color:rgba(100,116,139,0.8); }
+.bg-btn.active{ background:linear-gradient(135deg,#2563eb,#1d4ed8); color:white; }
+.bg-btn:hover{ background:rgba(0,0,0,0.05); }
+.preview-box.bg-light{ background:radial-gradient(ellipse at center,rgba(0,0,0,0.03) 0%,transparent 70%); }
+.preview-box.bg-transparent{ background:repeating-conic-gradient(rgba(0,0,0,0.03) 0% 25%, transparent 0% 50%) 50%/20px 20px; }
+select option, #profiles-list option, #game-select option, #game-profile-select option{ background:#ffffff; color:#0f172a; }
+.check input[type="checkbox"]{ accent-color:#2563eb; }
+#toggle-fps{ background:rgba(0,0,0,0.03); color:rgba(100,116,139,0.8); }
+#toggle-fps:hover{ background:rgba(0,0,0,0.05); color:#0f172a; }
+.game-detect-label{ color:rgba(100,116,139,0.4); }
+.game-assign-desc{ color:rgba(100,116,139,0.5); }
+.history-empty{ color:rgba(100,116,139,0.4); }
+#update-progress-bar{ background:rgba(0,0,0,0.06); }
+#update-progress-bar::-webkit-progress-bar{ background:rgba(0,0,0,0.06); }

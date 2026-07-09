@@ -1,28 +1,67 @@
-body{ background:#0a0a0a; color:#00ff99; }
-.sidebar{ background:#0d0d0d; border-right-color:#1a1a1a; }
-.logo h1{ color:#00ff99; }
-.logo span{ color:#006633; }
-.menu-btn{ background:#1a1a1a; color:#00ff99; border:1px solid #003311; }
-.menu-btn.active{ background:#00ff99; color:#000000; }
-.card{ background:#0d0d0d; border:1px solid #003311; }
-.card:hover{ box-shadow:0 8px 25px rgba(0,255,153,0.1); }
-.controls label span{ background:#1a1a1a; color:#00ff99; }
-#outline-options{ background:#111111; border:1px solid #003311; }
-.preview-box{ background:#0a0a0a; border:1px solid #003311; }
-.shortcuts > div{ border-bottom-color:#1a1a1a; }
-.shortcuts kbd{ background:#1a1a1a; color:#00ff99; border:1px solid #003311; }
-.preset-item{ background:#111111; border:1px solid #003311; }
-.preset-item span{ color:#00cc77; }
-.preset-preview{ border-color:#003311; }
-.profile-manager-item{ background:#111111; border:1px solid #003311; }
-.theme-btn{ background:#1a1a1a; color:#00ff99; border:1px solid #003311; }
-.theme-btn.active{ background:#00ff99; color:#000000; }
-select, input[type="color"], input[type="text"]{ background:#1a1a1a; color:#00ff99; border:1px solid #003311; }
-select option{ background:#1a1a1a; color:#00ff99; }
-input[type="range"]{ accent-color:#00ff99; }
-#apply{ background:#00ff99; color:#000000; }
-#apply:hover{ background:#00cc77; }
-#save{ background:#006633; color:#00ff99; }
-#save:hover{ background:#004d26; }
-#reset-btn{ background:#1a1a1a; color:#00ff99; border:1px solid #003311; }
-h1,h2,h3{ color:#00ff99; }
+body{ background:#050805; color:#00ff99; }
+.sidebar{ background:linear-gradient(180deg,#0a0f0a 0%,#050805 100%); border-right-color:rgba(0,255,153,0.06); }
+.sidebar::after{ background:linear-gradient(180deg,transparent,rgba(0,255,153,0.1),transparent); }
+.logo h1{ background:linear-gradient(135deg,#00ff99 0%,#00ccff 50%,#ff00ff 100%); -webkit-background-clip:text; background-clip:text; }
+.logo span{ color:rgba(0,255,153,0.3); }
+.menu-btn{ color:rgba(0,255,153,0.5); }
+.menu-btn:hover{ background:rgba(0,255,153,0.04); color:#00ff99; }
+.menu-btn.active{ background:linear-gradient(135deg,rgba(0,255,153,0.08),rgba(0,204,255,0.05)); color:#00ff99; box-shadow:inset 2px 0 0 #00ff99; }
+.card{ background:linear-gradient(135deg,rgba(10,20,10,0.8),rgba(5,10,5,0.6)); border-color:rgba(0,255,153,0.06); }
+.card::before{ background:linear-gradient(90deg,transparent,rgba(0,255,153,0.06),transparent); }
+.card:hover{ border-color:rgba(0,255,153,0.1); box-shadow:0 20px 50px -12px rgba(0,255,153,0.08); }
+.controls select, .controls input[type="color"], .controls input[type="text"],
+#layer2-options select, #layer2-options input[type="color"],
+.preset-search, .rename-input, #profiles-list, #profile-name,
+#game-select, #game-profile-select, .display-select select,
+.shortcut-input{ background:rgba(0,255,153,0.03); color:#00ff99; border:1px solid rgba(0,255,153,0.08); }
+.controls input[type="range"]{ background:rgba(0,255,153,0.1); }
+.controls input[type="range"]::-webkit-slider-thumb{ background:linear-gradient(135deg,#00ff99,#00cc66); box-shadow:0 0 12px rgba(0,255,153,0.3); }
+.controls label span{ background:rgba(0,255,153,0.04); color:rgba(0,255,153,0.5); }
+.preview-box{ background:radial-gradient(ellipse at center,rgba(0,255,153,0.03) 0%,transparent 70%); border-color:rgba(0,255,153,0.06); }
+#outline-options, #layer2-options{ background:rgba(0,255,153,0.02); border-color:rgba(0,255,153,0.06); }
+.preset-item{ background:rgba(0,255,153,0.03); border-color:rgba(0,255,153,0.04); }
+.preset-item:hover{ background:rgba(0,255,153,0.05); border-color:rgba(0,255,153,0.15); }
+.preset-preview{ border-color:rgba(0,255,153,0.1); }
+.shortcuts > div{ border-bottom-color:rgba(0,255,153,0.04); }
+.shortcuts kbd{ background:rgba(0,255,153,0.04); color:rgba(0,255,153,0.6); border-color:rgba(0,255,153,0.06); }
+.profile-manager-item{ background:rgba(0,255,153,0.03); border-color:rgba(0,255,153,0.04); }
+.profile-manager-item:hover{ background:rgba(0,255,153,0.04); border-color:rgba(0,255,153,0.06); }
+.theme-btn{ background:rgba(0,255,153,0.03); color:rgba(0,255,153,0.6); border:1px solid rgba(0,255,153,0.06); }
+.theme-btn.active, .lang-btn.active{ background:linear-gradient(135deg,#00ff99,#00cc66); color:#000; }
+.lang-btn{ background:rgba(0,255,153,0.03); color:rgba(0,255,153,0.6); border:1px solid rgba(0,255,153,0.06); }
+.btn-secondary{ background:rgba(0,255,153,0.03); color:rgba(0,255,153,0.6); }
+.btn-secondary:hover{ background:rgba(0,255,153,0.05); color:#00ff99; }
+#apply{ background:linear-gradient(135deg,#00ff99,#00cc66); color:#000; box-shadow:0 4px 15px rgba(0,255,153,0.2); }
+#apply:hover{ box-shadow:0 8px 25px rgba(0,255,153,0.3); }
+#save{ background:linear-gradient(135deg,#006633,#004d26); color:#00ff99; }
+#save:hover{ box-shadow:0 8px 25px rgba(0,102,51,0.3); }
+#reset-btn{ background:rgba(0,255,153,0.04); color:rgba(0,255,153,0.6); }
+#reset-btn:hover{ background:rgba(0,255,153,0.06); color:#00ff99; }
+.bg-btn{ background:rgba(0,255,153,0.03); color:rgba(0,255,153,0.6); }
+.bg-btn.active{ background:linear-gradient(135deg,#00ff99,#00cc66); color:#000; }
+.bg-btn:hover{ background:rgba(0,255,153,0.05); }
+select option, #profiles-list option, #game-select option, #game-profile-select option{ background:#0a0f0a; color:#00ff99; }
+#delete-profile{ background:linear-gradient(135deg,#ff0044,#cc0033); }
+#export-profile{ background:linear-gradient(135deg,#ff00ff,#cc00cc); }
+#import-profile{ background:linear-gradient(135deg,#00ccff,#0099cc); }
+#copy-cs2{ background:linear-gradient(135deg,#ff6600,#cc5200); }
+#copy-valorant{ background:linear-gradient(135deg,#ff0000,#cc0000); }
+#copy-fortnite{ background:linear-gradient(135deg,#0066ff,#0052cc); }
+#copy-apex{ background:linear-gradient(135deg,#ff0000,#cc0000); }
+#copy-r6{ background:linear-gradient(135deg,#ff8800,#cc6d00); }
+#copy-btn{ background:linear-gradient(135deg,#ff00ff,#cc00cc); }
+#paste-btn{ background:linear-gradient(135deg,#00ccff,#0099cc); }
+#save-preset-btn{ background:linear-gradient(135deg,#ffaa00,#cc8800); }
+.check input[type="checkbox"]{ accent-color:#00ff99; }
+#toggle-fps{ background:rgba(0,255,153,0.03); color:rgba(0,255,153,0.6); }
+#toggle-fps:hover{ background:rgba(0,255,153,0.05); color:#00ff99; }
+.game-detect-label{ color:rgba(0,255,153,0.3); }
+.game-assign-desc{ color:rgba(0,255,153,0.4); }
+.status-dot.active{ background:#00ff99; box-shadow:0 0 14px rgba(0,255,153,0.4); }
+#game-name.active, #active-game-text{ color:#00ff99; }
+.active-profile-name{ color:#00ff99; }
+.history-empty{ color:rgba(0,255,153,0.3); }
+.topbar h2{ color:#00ff99; }
+.card h3{ color:#00ff99; }
+h1, h2, h3{ color:#00ff99; }
+.controls label{ color:rgba(0,255,153,0.7); }

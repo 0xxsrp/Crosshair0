@@ -1,20 +1,6 @@
-body{ background:#0f172a; color:white; }
-.sidebar{ background:#111827; border-right-color:#1f2937; }
-.logo span{ color:#94a3b8; }
-.menu-btn{ background:#1f2937; color:white; }
-.menu-btn.active{ background:#2563eb; }
-.card{ background:#111827; }
-.controls label span{ background:#1f2937; color:#94a3b8; }
-#outline-options{ background:#1e293b; }
-.preview-box{ background:#0f172a; }
-.shortcuts > div{ border-bottom-color:#1f2937; }
-.shortcuts kbd{ background:#1f2937; color:#94a3b8; }
-.preset-item{ background:#1e293b; }
-.preset-item span{ color:#94a3b8; }
-.preset-preview{ border-color:#374151; }
-.profile-manager-item{ background:#1e293b; }
-.theme-btn{ background:#1f2937; color:white; }
-.theme-btn.active{ background:#2563eb; }
-select, input[type="color"], input[type="text"]{ background:#1f2937; color:white; }
-select option{ background:#1f2937; color:white; }
-input[type="range"]{ accent-color:#2563eb; }
+body{ background:#0a0e17; color:#e2e8f0; }
+.sidebar{ background:linear-gradient(180deg,#0f172a 0%,#0a0e17 100%); }
+.menu-btn.active{ background:linear-gradient(135deg,rgba(59,130,246,0.12),rgba(139,92,246,0.08)); color:#60a5fa; box-shadow:inset 2px 0 0 #3b82f6; }
+.card{ background:linear-gradient(135deg,rgba(17,24,39,0.8),rgba(15,23,42,0.6)); }
+#apply{ background:linear-gradient(135deg,#3b82f6,#2563eb); }
+#save{ background:linear-gradient(135deg,#16a34a,#15803d); }
