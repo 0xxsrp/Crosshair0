@@ -8,10 +8,10 @@
     "scripts": {
         "start": "electron .",
         "dev": "electron .",
-        "build": "electron-builder --win --x64",
-        "build:all": "electron-builder --win --x64 --ia32",
-        "dist": "electron-builder --win --x64 --publish always",
-        "dist:draft": "electron-builder --win --x64 --publish never",
+        "build": "electron-builder --win --x64 && node scripts/fix-latest-yml.js",
+        "build:all": "electron-builder --win --x64 --ia32 && node scripts/fix-latest-yml.js",
+        "dist": "electron-builder --win --x64 --publish always && node scripts/fix-latest-yml.js",
+        "dist:draft": "electron-builder --win --x64 --publish never && node scripts/fix-latest-yml.js",
         "icons": "node scripts/generate-icons.js",
         "postinstall": "electron-builder install-app-deps"
     },
