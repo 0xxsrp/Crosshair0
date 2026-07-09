@@ -3,18 +3,20 @@ const path = require("path");
 const fs = require("fs");
 
 let _db = null;
+let _migrated = false;
 
 function getDb(){
     if(_db) return _db;
-    const userData = process.env.CROSSHAIR0_USER_DATA || __dirname;
+    const userData = process.env.CROSSHAIR0_USER_DATA || path.join(require("os").homedir(), ".Crosshair0");
     if(!fs.existsSync(userData)) fs.mkdirSync(userData, { recursive: true });
     _db = new Database(path.join(userData, "Crosshair0.db"));
     _db.pragma("journal_mode = WAL");
+    if(!_migrated){ _migrated = true; migrate(); }
     return _db;
 }
 
 function migrate(){
-    const db = getDb();
+    const db = _db;
     db.exec(`
 CREATE TABLE IF NOT EXISTS settings (
     id INTEGER PRIMARY KEY,
@@ -66,8 +68,6 @@ CREATE TABLE IF NOT EXISTS history (
         db.exec("ALTER TABLE custom_presets ADD COLUMN favorite INTEGER DEFAULT 0");
     }
 }
-
-migrate();
 
 function fillSettings(s){
     return {
