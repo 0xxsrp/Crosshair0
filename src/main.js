@@ -446,11 +446,14 @@ ipcMain.handle("share:load", async (_, code) => {
 
 ipcMain.handle("update:check", async () => {
     try {
-        autoUpdater.setFeedURL({ provider: "github", owner: "0xxsrp", repo: "Crosshair0" });
-        await autoUpdater.checkForUpdates();
-        return { hasUpdate: true };
+        const result = await autoUpdater.checkForUpdates();
+        const latest = result?.updateInfo?.version;
+        const current = app.getVersion();
+        if(latest && latest !== current){
+            return { latest, current, hasUpdate: true };
+        }
+        return { latest, current, hasUpdate: false };
     } catch(e) {
-        // Fallback: manual API check
         try {
             const result = await new Promise((resolve) => {
                 https.get("https://api.github.com/repos/0xxsrp/Crosshair0/releases/latest", {
@@ -461,8 +464,8 @@ ipcMain.handle("update:check", async () => {
                     res.on("end", () => {
                         try {
                             const release = JSON.parse(data);
-                            const latest = release.tag_name || release.name || "";
-                            const current = config.version;
+                            const latest = (release.tag_name || release.name || "").replace(/^v/, "");
+                            const current = app.getVersion();
                             resolve({ latest, current, hasUpdate: latest !== current && !!latest });
                         } catch(e) { resolve(null); }
                     });
@@ -476,8 +479,8 @@ ipcMain.handle("update:check", async () => {
 ipcMain.handle("update:checkAuto", async () => {
     try {
         autoUpdater.setFeedURL({ provider: "github", owner: "0xxsrp", repo: "Crosshair0" });
-        await autoUpdater.checkForUpdates();
-        return true;
+        const result = await autoUpdater.checkForUpdates();
+        return result?.updateInfo?.version !== app.getVersion();
     } catch(e) {
         console.error("Auto-update check failed:", e);
         return false;
