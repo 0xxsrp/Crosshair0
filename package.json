@@ -1,92 +1,92 @@
 {
-    "name": "crosshair0",
-    "version": "3.1.1",
-    "description": "Professional Crosshair Overlay",
-    "main": "src/main.js",
-    "author": "Srp0",
-    "license": "MIT",
-    "scripts": {
-        "start": "electron .",
-        "dev": "electron .",
-        "build": "electron-builder --win --x64 && node scripts/fix-latest-yml.js",
-        "build:all": "electron-builder --win --x64 --ia32 && node scripts/fix-latest-yml.js",
-        "dist": "electron-builder --win --x64 --publish always && node scripts/fix-latest-yml.js",
-        "dist:draft": "electron-builder --win --x64 --publish never && node scripts/fix-latest-yml.js",
-        "icons": "node scripts/generate-icons.js",
-        "postinstall": "electron-builder install-app-deps"
+  "name": "crosshair0",
+  "version": "3.1.2",
+  "description": "Professional Crosshair Overlay",
+  "main": "src/main.js",
+  "author": "Srp0",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "build": "electron-builder --win --x64 && node scripts/fix-latest-yml.js",
+    "build:all": "electron-builder --win --x64 --ia32 && node scripts/fix-latest-yml.js",
+    "dist": "electron-builder --win --x64 --publish always && node scripts/fix-latest-yml.js",
+    "dist:draft": "electron-builder --win --x64 --publish never && node scripts/fix-latest-yml.js",
+    "icons": "node scripts/generate-icons.js",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "auto-launch": "^5.0.6",
+    "better-sqlite3": "^12.0.0",
+    "electron-updater": "^6.0.0",
+    "ps-list": "^8.1.1"
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.12",
+    "png-to-ico": "^3.0.2",
+    "pngjs": "^7.0.0"
+  },
+  "build": {
+    "appId": "com.srp0.crosshair0",
+    "productName": "Crosshair0",
+    "copyright": "Copyright © 2026 Srp0",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
     },
-    "dependencies": {
-        "auto-launch": "^5.0.6",
-        "better-sqlite3": "^12.0.0",
-        "electron-updater": "^6.0.0",
-        "ps-list": "^8.1.1"
+    "files": [
+      "src/**/*",
+      "!node_modules/**/test*/**",
+      "!node_modules/**/docs/**"
+    ],
+    "extraResources": [
+      {
+        "from": "assets/",
+        "to": "assets/",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "asar": true,
+    "compression": "maximum",
+    "removePackageScripts": true,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "verifyUpdateCodeSignature": false,
+      "requestedExecutionLevel": "asInvoker"
     },
-    "devDependencies": {
-        "electron": "^38.0.0",
-        "electron-builder": "^26.0.12",
-        "png-to-ico": "^3.0.2",
-        "pngjs": "^7.0.0"
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Crosshair0",
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "installerHeaderIcon": "assets/icon.ico",
+      "license": "LICENSE.txt",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false
     },
-    "build": {
-        "appId": "com.srp0.crosshair0",
-        "productName": "Crosshair0",
-        "copyright": "Copyright © 2026 Srp0",
-        "directories": {
-            "output": "dist",
-            "buildResources": "assets"
-        },
-        "files": [
-            "src/**/*",
-            "!node_modules/**/test*/**",
-            "!node_modules/**/docs/**"
-        ],
-        "extraResources": [
-            {
-                "from": "assets/",
-                "to": "assets/",
-                "filter": [
-                    "**/*"
-                ]
-            }
-        ],
-        "asar": true,
-        "compression": "maximum",
-        "removePackageScripts": true,
-        "win": {
-            "target": [
-                {
-                    "target": "nsis",
-                    "arch": [
-                        "x64"
-                    ]
-                }
-            ],
-            "icon": "assets/icon.ico",
-            "verifyUpdateCodeSignature": false,
-            "requestedExecutionLevel": "asInvoker"
-        },
-        "nsis": {
-            "oneClick": false,
-            "perMachine": false,
-            "allowToChangeInstallationDirectory": true,
-            "createDesktopShortcut": true,
-            "createStartMenuShortcut": true,
-            "shortcutName": "Crosshair0",
-            "installerIcon": "assets/icon.ico",
-            "uninstallerIcon": "assets/icon.ico",
-            "installerHeaderIcon": "assets/icon.ico",
-            "license": "LICENSE.txt",
-            "runAfterFinish": true,
-            "deleteAppDataOnUninstall": false
-        },
-        "publish": [
-            {
-                "provider": "github",
-                "owner": "0xxsrp",
-                "repo": "Crosshair0",
-                "releaseType": "release"
-            }
-        ],
-        "afterPack": null
-    }
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "0xxsrp",
+        "repo": "Crosshair0",
+        "releaseType": "release"
+      }
+    ],
+    "afterPack": null
+  }
 }
