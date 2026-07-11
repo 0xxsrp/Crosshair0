@@ -70,6 +70,10 @@ function createOverlay(displayIndex){
 
     overlayWindow.setIgnoreMouseEvents(true);
     overlayWindow.loadFile(path.join(__dirname, "overlay", "overlay.html"));
+    overlayWindow.webContents.on("did-finish-load", () => {
+        const s = getSettings();
+        if(s) overlayWindow.webContents.send("crosshair:update", s);
+    });
 }
 
 function loadWindowState(){
