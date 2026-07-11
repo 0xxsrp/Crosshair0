@@ -3,9 +3,9 @@
   <h1 align="center">Crosshair0</h1>
   <p align="center">Professional Crosshair Overlay for PC Games</p>
   <p align="center">
-    <a href="https://github.com/0xxsrp/Crosshair0/releases/latest"><img src="https://img.shields.io/github/v/release/0xxsrp/Crosshair0?style=flat&label=Version"></a>
-    <a href="https://github.com/0xxsrp/Crosshair0/releases"><img src="https://img.shields.io/github/downloads/0xxsrp/Crosshair0/total?style=flat&label=Downloads"></a>
-    <a href="https://github.com/0xxsrp/Crosshair0/blob/main/LICENSE"><img src="https://img.shields.io/github/license/0xxsrp/Crosshair0?style=flat&label=License"></a>
+    <a href="https://github.com/0Srp/Crosshair0/releases/latest"><img src="https://img.shields.io/github/v/release/0Srp/Crosshair0?style=flat&label=Version"></a>
+    <a href="https://github.com/0Srp/Crosshair0/releases"><img src="https://img.shields.io/github/downloads/0Srp/Crosshair0/total?style=flat&label=Downloads"></a>
+    <a href="https://github.com/0Srp/Crosshair0/blob/main/LICENSE"><img src="https://img.shields.io/github/license/0Srp/Crosshair0?style=flat&label=License"></a>
   </p>
 </p>
 
@@ -34,7 +34,7 @@
 
 ### التثبيت
 
-1. حمّل آخر إصدار من [صفحة الإصدارات](https://github.com/0xxsrp/Crosshair0/releases/latest)
+1. حمّل آخر إصدار من [صفحة الإصدارات](https://github.com/0Srp/Crosshair0/releases/latest)
 2. شغّل المثبّت (`Crosshair0 Setup X.X.X.exe`)
 3. البرنامج يشتغل تلقائيًا بعد التثبيت
 4. الأوفرلي يظهر فوق جميع الألعاب
@@ -70,7 +70,7 @@
 
 ### Installation
 
-1. Download the latest release from the [Releases page](https://github.com/0xxsrp/Crosshair0/releases/latest)
+1. Download the latest release from the [Releases page](https://github.com/0Srp/Crosshair0/releases/latest)
 2. Run the installer (`Crosshair0 Setup X.X.X.exe`)
 3. The app starts automatically after installation
 4. The overlay appears on top of all games
@@ -105,10 +105,10 @@
 
 ### Links
 
-- [Download Latest](https://github.com/0xxsrp/Crosshair0/releases/latest)
-- [Releases](https://github.com/0xxsrp/Crosshair0/releases)
-- [Issues](https://github.com/0xxsrp/Crosshair0/issues)
+- [Download Latest](https://github.com/0Srp/Crosshair0/releases/latest)
+- [Releases](https://github.com/0Srp/Crosshair0/releases)
+- [Issues](https://github.com/0Srp/Crosshair0/issues)
 
 ---
 
-<p align="center">Made with ❤️ by <a href="https://github.com/0xxsrp">Srp0</a></p>
+<p align="center">Made with ❤️ by <a href="https://github.com/0Srp">Srp0</a></p>

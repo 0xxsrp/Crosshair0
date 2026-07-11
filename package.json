@@ -82,7 +82,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "0xxsrp",
+        "owner": "0Srp",
         "repo": "Crosshair0",
         "releaseType": "release"
       }

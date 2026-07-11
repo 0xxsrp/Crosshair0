@@ -156,7 +156,7 @@ autoUpdater.autoInstallOnAppQuit = true;
 autoUpdater.logger = console;
 autoUpdater.setFeedURL({
     provider: "github",
-    owner: "0xxsrp",
+    owner: "0Srp",
     repo: "Crosshair0"
 });
 
@@ -460,7 +460,7 @@ ipcMain.handle("update:check", async () => {
     } catch(e) {
         try {
             const result = await new Promise((resolve) => {
-                https.get("https://api.github.com/repos/0xxsrp/Crosshair0/releases/latest", {
+                https.get("https://api.github.com/repos/0Srp/Crosshair0/releases/latest", {
                     headers: { "User-Agent": "Crosshair0" }
                 }, (res) => {
                     let data = "";
@@ -482,7 +482,7 @@ ipcMain.handle("update:check", async () => {
 
 ipcMain.handle("update:checkAuto", async () => {
     try {
-        autoUpdater.setFeedURL({ provider: "github", owner: "0xxsrp", repo: "Crosshair0" });
+        autoUpdater.setFeedURL({ provider: "github", owner: "0Srp", repo: "Crosshair0" });
         const result = await autoUpdater.checkForUpdates();
         return result?.updateInfo?.version !== app.getVersion();
     } catch(e) {

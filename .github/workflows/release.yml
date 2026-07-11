@@ -33,7 +33,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: ${{ github.ref_name }}
-          body: "See https://github.com/0xxsrp/Crosshair0/releases for details"
+          body: "See https://github.com/0Srp/Crosshair0/releases for details"
           files: |
             dist/Crosshair0*.exe
             dist/Crosshair0*.exe.blockmap
